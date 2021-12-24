@@ -7,7 +7,7 @@ app-test:
   stage: test
   script:
     - flutter --version
-    - cd team_app_frontend
+    - cd teamapp_frontend
     - flutter pub get
     - flutter test 
   interruptible: true
