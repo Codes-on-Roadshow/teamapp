@@ -5,8 +5,6 @@ stages:
 
 app-test:
   stage: test
-  only:
-    - merge_requests
   script:
     - flutter --version
     - cd team_app_frontend
