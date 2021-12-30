@@ -30,6 +30,10 @@
 .pub-cache/
 .pub/
 /build/
+report.json
+.project
+/android/.settings/org.eclipse.buildship.core.prefs
+
 
 # Web related
 lib/generated_plugin_registrant.dart
