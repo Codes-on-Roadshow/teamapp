@@ -2,6 +2,7 @@ image: cirrusci/flutter:2.2.3
 
 stages:
   - test
+  - e2e-test
 
 app-test:
   stage: test
@@ -11,3 +12,11 @@ app-test:
     - flutter pub get
     - flutter test 
   interruptible: true
+
+app-e2e-test:
+  stage: e2e-test
+  script:
+    - cd teamapp_frontend/test_driver
+    - dart ./app_test.dart
+  interruptible: true
+  
