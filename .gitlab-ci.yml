@@ -1,41 +1,41 @@
 image: cirrusci/flutter:2.2.3
 
-container:
-  image: cirrusci/android-sdk:29
-  cpu: 4
-  memory: 10G
-
-check_android_task:
-  create_device_script:
-    echo no | avdmanager create avd --force
-        -n test
-        -k "system-images;android-29;default;armeabi-v7a"
-  start_emulator_background_script:
-    $ANDROID_HOME/emulator/emulator
-        -avd test
-        -no-audio
-        -no-window
-  wait_for_emulator_script:
-    - adb wait-for-device
-    - adb shell input keyevent 82
-  check_script: ./gradlew check connectedCheck
+.create_device_script: &create_device_script
+  - echo no | avdmanager create avd --force
+      -n test
+      -k "system-images;android-29;default;armeabi-v7a"
+.start_emulator_background_script: &start_emulator_background_script
+  - $ANDROID_HOME/emulator/emulator
+      -avd test
+      -no-audio
+      -no-window
+.wait_for_emulator_script: &wait_for_emulator_script
+  - adb wait-for-device
+  - adb shell input keyevent 82
+.check_script: &check_script
+  - ./gradlew check connectedCheck
 
 stages:
   - test
   - e2e-test
 
-app-test:
-  stage: test
-  script:
-    - flutter --version
-    - cd teamapp_frontend
-    - flutter pub get
-    - flutter test 
-  interruptible: true
+# app-test:
+#   stage: test
+#   script:
+#     - flutter --version
+#     - cd teamapp_frontend
+#     - flutter pub get
+#     - flutter test 
+#   interruptible: true
 
 app-e2e-test:
+  image: cirrusci/android-sdk:29
   stage: e2e-test
   script:
+    - <<:*create_device_script
+    - <<:*start_emulator_background_script
+    - <<:*wait_for_emulator_script
+    - <<:*check_script
     - cd teamapp_frontend
     - flutter pub get
     - cd test_driver
