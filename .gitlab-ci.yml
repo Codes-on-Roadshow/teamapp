@@ -16,7 +16,9 @@ app-test:
 app-e2e-test:
   stage: e2e-test
   script:
-    - cd teamapp_frontend/test_driver
+    - cd teamapp_frontend
+    - flutter pub get
+    - cd test_driver
     - dart ./app_test.dart
   interruptible: true
   
