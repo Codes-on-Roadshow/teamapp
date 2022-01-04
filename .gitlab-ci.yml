@@ -1,4 +1,4 @@
-image: cirrusci/flutter:2.2.3
+image: cirrusci/android-sdk:29
 
 .prepare_step:
   before_script:
@@ -22,7 +22,6 @@ stages:
 #   interruptible: true
 
 app-e2e-test:
-  image: cirrusci/android-sdk:29
   stage: e2e-test
   extends: .prepare_step
   script:
