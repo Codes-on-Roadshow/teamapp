@@ -2,6 +2,7 @@ image: cirrusci/android-sdk:29
 
 .prepare_step:
   before_script:
+    - pwd
     - echo no | avdmanager create avd --force -n test -k "system-images;android-29;default;armeabi-v7a"
     - $ANDROID_HOME/emulator/emulator -avd test -no-audio -no-window
     - adb wait-for-device
