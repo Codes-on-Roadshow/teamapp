@@ -14,7 +14,8 @@ Future<void> main() {
     ] // you can include the "StdoutReporter()" without the message level parameter for verbose log information
     ..stepDefinitions = [GivenTheCounterIsStringStep(), ITapStringButtonNTimesStep()]
     ..restartAppBetweenScenarios = true
-    ..targetAppPath = "test_driver/app.dart";
+    ..targetAppPath = "test_driver/app.dart"
+    ..flutterBuildTimeout = const Duration(minutes: 5);
     // ..tagExpression = "@smoke" // uncomment to see an example of running scenarios based on tag expressions
   return GherkinRunner().execute(config);
 }
