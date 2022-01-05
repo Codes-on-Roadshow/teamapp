@@ -16,10 +16,8 @@ before_script:
   - export ANDROID_HOME=$PWD/android-sdk-linux
   - export PATH=$PATH:$PWD/android-sdk-linux/platform-tools/
 
-  - android-sdk-linux/tools/bin/sdkmanager --sdk_root=${ANDROID_HOME} --update > update.log
-  - echo y | android-sdk-linux/tools/bin/sdkmanager --sdk_root=${ANDROID_HOME} "platforms;android-${ANDROID_COMPILE_SDK}" "build-tools;${ANDROID_BUILD_TOOLS}" "extras;google;m2repository" "extras;android;m2repository" > installPlatform.log
-
-  - chmod +x ./gradlew
+  - android-sdk-linux/cmdline-tools/bin/sdkmanager --sdk_root=${ANDROID_HOME} --update
+  - echo y | android-sdk-linux/cmdline-tools/bin/sdkmanager --sdk_root=${ANDROID_HOME} "platforms;android-${ANDROID_COMPILE_SDK}" "build-tools;${ANDROID_BUILD_TOOLS}"
 
 # .prepare_step:
 #   before_script:
