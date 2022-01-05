@@ -37,7 +37,7 @@ app-e2e-test:
     - rm android-sdk.zip
 
     - android-sdk-linux/tools/bin/sdkmanager --update > update.log
-    - echo y | android-sdk-linux/tools/bin/sdkmanager "platforms;android-${ANDROID_COMPILE_SDK}" "build-tools;${ANDROID_BUILD_TOOLS}" "extras;google;m2repository" "extras;android;m2repository"
+    - echo y | android-sdk-linux/tools/bin/sdkmanager "platforms;android-${ANDROID_COMPILE_SDK}" "build-tools;${ANDROID_BUILD_TOOLS}" "extras;google;m2repository" "extras;android;m2repository" > installPlatform.log
 
     - export ANDROID_HOME=$PWD/android-sdk-linux
     - export ANDROID_SDK_ROOT=$PWD/android-sdk-linux
@@ -47,12 +47,13 @@ app-e2e-test:
     - apt-get --quiet install --yes libx11-dev libpulse0 libgl1 libnss3 libxcomposite-dev libxcursor1 libasound2
     - wget --quiet --output-document=android-wait-for-emulator https://raw.githubusercontent.com/travis-ci/travis-cookbooks/0f497eb71291b52a703143c5cd63a217c8766dc9/community-cookbooks/android-sdk/files/default/android-wait-for-emulator
     - chmod +x android-wait-for-emulator
+    
     - android-sdk-linux/tools/bin/sdkmanager --update > update.log
-    - echo y | android-sdk-linux/tools/bin/sdkmanager "platform-tools" "emulator" "system-images;android-${EMULATOR_VERSION};default;armeabi-v7a" > install.log
+    - android-sdk-linux/tools/bin/sdkmanager "platform-tools" "emulator" "system-images;android-${EMULATOR_VERSION};default;armeabi-v7a" > install.log
     - echo no | android-sdk-linux/tools/bin/avdmanager create avd -n test -k "system-images;android-${EMULATOR_VERSION};default;armeabi-v7a"
-    - ls android-sdk-linux
     - android-sdk-linux/emulator/emulator -avd test -no-window -no-audio & ./android-wait-for-emulator
     - adb shell input keyevent 82
+    
     - cd teamapp_frontend
     - flutter pub get
     - cd test_driver
