@@ -1,16 +1,36 @@
-image: cirrusci/android-sdk:29
+# image: cirrusci/android-sdk:29
+image: openjdk:11-jdk
 
-.prepare_step:
-  before_script:
-    - pwd
-    - echo no | avdmanager create avd --force -n test -k "system-images;android-29;default;armeabi-v7a"
-    - $ANDROID_HOME/emulator/emulator -avd test -no-audio -no-window
-    - adb wait-for-device
-    - adb shell input keyevent 82
-    - ./gradlew check connectedCheck
+variables:
+  ANDROID_COMPILE_SDK: "30"
+  ANDROID_BUILD_TOOLS: "30.0.3"
+  SDK_TOOLS: "6858069"
+  EMULATOR_VERSION: "24"
+
+  
+before_script:
+  - wget --quiet --output-document=android-sdk.zip https://dl.google.com/android/repository/commandlinetools-linux-${SDK_TOOLS}_latest.zip
+  - unzip -q android-sdk.zip -d android-sdk-linux
+  - rm android-sdk.zip
+
+  - export ANDROID_HOME=$PWD/android-sdk-linux
+  - export PATH=$PATH:$PWD/android-sdk-linux/platform-tools/
+
+  - android-sdk-linux/tools/bin/sdkmanager --sdk_root=${ANDROID_HOME} --update > update.log
+  - echo y | android-sdk-linux/tools/bin/sdkmanager --sdk_root=${ANDROID_HOME} "platforms;android-${ANDROID_COMPILE_SDK}" "build-tools;${ANDROID_BUILD_TOOLS}" "extras;google;m2repository" "extras;android;m2repository" > installPlatform.log
+
+  - chmod +x ./gradlew
+
+# .prepare_step:
+#   before_script:
+#     - echo no | avdmanager create avd --force -n test -k "system-images;android-29;default;armeabi-v7a"
+#     - $ANDROID_HOME/emulator/emulator -avd test -no-audio -no-window
+#     - adb wait-for-device
+#     - adb shell input keyevent 82
+#     - ./gradlew check connectedCheck
 
 stages:
-  - test
+  # - test
   - e2e-test
 
 # app-test:
@@ -24,8 +44,18 @@ stages:
 
 app-e2e-test:
   stage: e2e-test
-  extends: .prepare_step
+  # extends: .prepare_step
   script:
+    - apt-get --quiet update --yes
+    - apt-get --quiet install --yes libx11-dev libpulse0 libgl1 libnss3 libxcomposite-dev libxcursor1 libasound2
+    - wget --quiet --output-document=android-wait-for-emulator https://raw.githubusercontent.com/travis-ci/travis-cookbooks/0f497eb71291b52a703143c5cd63a217c8766dc9/community-cookbooks/android-sdk/files/default/android-wait-for-emulator
+    - chmod +x android-wait-for-emulator
+    - android-sdk-linux/tools/bin/sdkmanager --update > update.log
+    - android-sdk-linux/tools/bin/sdkmanager "platform-tools" "emulator" "system-images;android-${EMULATOR_VERSION};default;armeabi-v7a"  > installEmulator.log
+    - echo no | android-sdk-linux/tools/bin/avdmanager create avd -n test -k "system-images;android-${EMULATOR_VERSION};default;armeabi-v7a"
+    - android-sdk-linux/emulator/emulator -avd test -no-window -no-audio &
+    - ./android-wait-for-emulator
+    - adb shell input keyevent 82
     - cd teamapp_frontend
     - flutter pub get
     - cd test_driver
