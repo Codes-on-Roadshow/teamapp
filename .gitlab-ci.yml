@@ -59,11 +59,11 @@ app-e2e-test:
     - dart ./app_test.dart
   interruptible: true
   
-flutter-app-e2e-test:
-  stage: e2e-test
-  when: manual
-  image: cirrusci/flutter:2.8.1
-  script:
-    - cd teamapp_frontend
-    - flutter doctor
+# flutter-app-e2e-test:
+#   stage: e2e-test
+#   when: manual
+#   image: cirrusci/flutter:2.8.1
+#   script:
+#     - cd teamapp_frontend
+#     - flutter doctor
     
