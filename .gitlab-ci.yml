@@ -7,17 +7,17 @@ variables:
   SDK_TOOLS: "4333796"
   EMULATOR_VERSION: "24"
   
-before_script:
-  - wget --quiet --output-document=android-sdk.zip https://dl.google.com/android/repository/sdk-tools-linux-${SDK_TOOLS}.zip
-  - unzip -q android-sdk.zip -d android-sdk-linux
-  - rm android-sdk.zip
+# before_script:
+#   - wget --quiet --output-document=android-sdk.zip https://dl.google.com/android/repository/sdk-tools-linux-${SDK_TOOLS}.zip
+#   - unzip -q android-sdk.zip -d android-sdk-linux
+#   - rm android-sdk.zip
 
-  - android-sdk-linux/tools/bin/sdkmanager --update > update.log
-  - android-sdk-linux/tools/bin/sdkmanager "platforms;android-${ANDROID_COMPILE_SDK}" "build-tools;${ANDROID_BUILD_TOOLS}" "extras;google;m2repository" "extras;android;m2repository" > installPlatform.log
+#   - android-sdk-linux/tools/bin/sdkmanager --update > update.log
+#   - android-sdk-linux/tools/bin/sdkmanager "platforms;android-${ANDROID_COMPILE_SDK}" "build-tools;${ANDROID_BUILD_TOOLS}" "extras;google;m2repository" "extras;android;m2repository" > installPlatform.log
 
-  - export ANDROID_HOME=$PWD/android-sdk-linux
-  - export ANDROID_SDK_ROOT=$PWD/android-sdk-linux
-  - export PATH=$PATH:$PWD/android-sdk-linux/platform-tools/
+#   - export ANDROID_HOME=$PWD/android-sdk-linux
+#   - export ANDROID_SDK_ROOT=$PWD/android-sdk-linux
+#   - export PATH=$PATH:$PWD/android-sdk-linux/platform-tools/
 
 # .prepare_step:
 #   before_script:
@@ -41,6 +41,7 @@ stages:
 
 app-e2e-test:
   stage: e2e-test
+  when: manual
   # extends: .prepare_step
   script:
     - apt-get --quiet update --yes
@@ -59,3 +60,11 @@ app-e2e-test:
     - dart ./app_test.dart
   interruptible: true
   
+flutter-app-e2e-test:
+  stage: e2e-test
+  when: manual
+  image: cirrusci/flutter:2.8.1
+  script:
+    - cd teamapp_frontend
+    - flutter doctor
+    
