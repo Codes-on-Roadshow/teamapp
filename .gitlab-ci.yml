@@ -52,7 +52,7 @@ app-e2e-test:
     - chmod +x android-wait-for-emulator
     - android-sdk-linux/tools/bin/sdkmanager --update > update.log
     - android-sdk-linux/tools/bin/sdkmanager "platform-tools" "emulator" "system-images;android-${EMULATOR_VERSION};default;armeabi-v7a"  > installEmulator.log
-    - android-sdk-linux/tools/bin/sdkmanager "system-images;android-24;default;armeabi-v7a"
+    - echo y | android-sdk-linux/tools/bin/sdkmanager "system-images;android-24;default;armeabi-v7a"
     - android-sdk-linux/tools/bin/sdkmanager --list
     - echo no | android-sdk-linux/tools/bin/avdmanager create avd -n test -k "system-images;android-24;default;armeabi-v7a"
     - android-sdk-linux/emulator/emulator -list -avds
