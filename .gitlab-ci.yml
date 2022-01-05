@@ -6,6 +6,7 @@ stages:
 
 app-test:
   stage: test
+  when: manual
   script:
     - flutter --version
     - cd teamapp_frontend
@@ -15,9 +16,10 @@ app-test:
 
 app-e2e-test:
   stage: e2e-test
+  when: manual
   script:
-    - sdkmanager --install "platform-tools" "emulator" "system-images;android-29;default;armeabi-v7a" > install.log
-    - echo no | avdmanager create avd -n test -k "system-images;android-29;default;armeabi-v7a"
+    - sdkmanager --install "platform-tools" "emulator" "system-images;android-24;default;armeabi-v7a" > install.log
+    - echo no | avdmanager create avd -n test -k "system-images;android-24;default;armeabi-v7a"
     - emulator -avd test -no-window -no-audio &
     - adb wait-for-device
     - adb shell input keyevent 82
