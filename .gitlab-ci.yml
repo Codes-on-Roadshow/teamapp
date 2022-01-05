@@ -37,7 +37,7 @@ app-e2e-test:
     - rm android-sdk.zip
 
     - android-sdk-linux/tools/bin/sdkmanager --update > update.log
-    - android-sdk-linux/tools/bin/sdkmanager "platforms;android-${ANDROID_COMPILE_SDK}" "build-tools;${ANDROID_BUILD_TOOLS}" "extras;google;m2repository" "extras;android;m2repository"
+    - echo y | android-sdk-linux/tools/bin/sdkmanager "platforms;android-${ANDROID_COMPILE_SDK}" "build-tools;${ANDROID_BUILD_TOOLS}" "extras;google;m2repository" "extras;android;m2repository"
 
     - export ANDROID_HOME=$PWD/android-sdk-linux
     - export ANDROID_SDK_ROOT=$PWD/android-sdk-linux
