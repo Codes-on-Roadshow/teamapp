@@ -20,7 +20,8 @@ app-e2e-test:
   script:
     - wget --quiet --output-document=android-wait-for-emulator https://raw.githubusercontent.com/travis-ci/travis-cookbooks/0f497eb71291b52a703143c5cd63a217c8766dc9/community-cookbooks/android-sdk/files/default/android-wait-for-emulator
     - chmod +x android-wait-for-emulator
-    - sdkmanager --install "platform-tools" "emulator" "system-images;android-24;default;armeabi-v7a" > install.log
+    - sdkmanager --install "system-images;android-24;default;armeabi-v7a" > install.log
+    - avdmanager list avd
     - echo no | avdmanager create avd -n test -k "system-images;android-24;default;armeabi-v7a"
     - emulator -avd test -no-window -no-audio &
     - ./android-wait-for-emulator
@@ -28,6 +29,7 @@ app-e2e-test:
 
     - cd teamapp_frontend
     - flutter pub get
+    - flutter doctor
     - cd test_driver
     - dart ./app_test.dart
   interruptible: true
