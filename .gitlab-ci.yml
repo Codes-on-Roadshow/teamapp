@@ -5,7 +5,7 @@ stages:
   - e2e-test
 
 cache:
-  key: sdk
+  key: one-key-to-rule-them-all
   path: 
     - /opt/android-sdk-linux/system-images
 
