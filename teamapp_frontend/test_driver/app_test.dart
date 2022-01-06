@@ -15,7 +15,7 @@ Future<void> main() {
     ..stepDefinitions = [GivenTheCounterIsStringStep(), ITapStringButtonNTimesStep()]
     ..restartAppBetweenScenarios = true
     ..targetAppPath = "test_driver/app.dart"
-    ..flutterBuildTimeout = const Duration(minutes: 5);
+    ..flutterBuildTimeout = const Duration(minutes: 15);
     // ..tagExpression = "@smoke" // uncomment to see an example of running scenarios based on tag expressions
   return GherkinRunner().execute(config);
 }
