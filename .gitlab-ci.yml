@@ -4,11 +4,6 @@ stages:
   - test
   - e2e-test
 
-cache:
-  key: sdk
-  paths: 
-    - /opt/android-sdk-linux/system-images
-
 app-test:
   stage: test
   when: manual
@@ -16,11 +11,15 @@ app-test:
     - flutter --version
     - cd teamapp_frontend
     - flutter pub get
-    - flutter test 
+    - flutter test
   interruptible: true
 
 app-e2e-test:
   stage: e2e-test
+  cache:
+    key: sdk
+    paths:
+      - /opt/android-sdk-linux/system-images/
   script:
     - wget --quiet --output-document=android-wait-for-emulator https://raw.githubusercontent.com/travis-ci/travis-cookbooks/0f497eb71291b52a703143c5cd63a217c8766dc9/community-cookbooks/android-sdk/files/default/android-wait-for-emulator
     - chmod +x android-wait-for-emulator
@@ -29,7 +28,6 @@ app-e2e-test:
     - emulator -avd emulator-5554 -no-window -no-audio &
     - ./android-wait-for-emulator
     - avdmanager list avd
-    - adb shell input keyevent 82
 
     - cd teamapp_frontend
     - flutter pub get
