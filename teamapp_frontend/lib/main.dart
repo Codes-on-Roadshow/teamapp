@@ -28,6 +28,7 @@ class MyHomePage extends StatelessWidget {
             const Padding(
               padding: EdgeInsets.all(16.0),
               child: CircleAvatar(
+                key: Key('profile-image'),
                 maxRadius: 50,
                 backgroundImage:
                     NetworkImage('https://placekitten.com/200/200'),
