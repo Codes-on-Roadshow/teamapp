@@ -25,15 +25,6 @@ class MyHomePage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Padding(
-              padding: EdgeInsets.all(16.0),
-              child: CircleAvatar(
-                key: Key('profile-image'),
-                maxRadius: 50,
-                backgroundImage:
-                    NetworkImage('https://placekitten.com/200/200'),
-              ),
-            ),
             Text('Ranu WP', style: Theme.of(context).textTheme.headlineLarge),
             Text('ranu.wp@team.com',
                 style: Theme.of(context).textTheme.headlineSmall),

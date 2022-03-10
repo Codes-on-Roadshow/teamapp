@@ -40,6 +40,8 @@ dev_dependencies:
     sdk: flutter
   integration_test:
     sdk: flutter
+  bdd_widget_test: 1.0.3
+  build_runner:
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
