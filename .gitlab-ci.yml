@@ -4,7 +4,7 @@ stages:
   - build
   - integration-test
 
-app-build:
+android-build:
   stage: build
   before_script:
     - cd teamapp_frontend
@@ -14,12 +14,11 @@ app-build:
     - flutter build apk
     - ./gradlew app:assembleAndroidTest
     - ./gradlew app:assembleDebug -Ptarget="integration_test/profile_test.dart"
-    - cd .. 
   artifacts:
     paths:
       - teamapp_frontend/build/app/outputs/
 
-app-integration-test:
+android-integration-test:
   stage: integration-test
   image: google/cloud-sdk
   before_script:
@@ -29,4 +28,18 @@ app-integration-test:
     - gcloud auth activate-service-account --key-file=key.json
     - gcloud config set project $PROJECT_ID
     - gcloud firebase test android models list
-    - gcloud firebase test android run --type instrumentation --app build/app/outputs/apk/debug/app-debug.apk --test build/app/outputs/apk/androidTest/debug/app-debug-androidTest.apk --device model=Nexus6,version=21,locale=en,orientation=portrait
+    - gcloud firebase test android run 
+      --type instrumentation 
+      --app build/app/outputs/apk/debug/app-debug.apk 
+      --test build/app/outputs/apk/androidTest/debug/app-debug-androidTest.apk 
+      --device model=blueline,version=28,locale=en,orientation=portrait
+
+ios-build:
+  skip: true
+  stage: build
+  before_script:
+    - cd teamapp_frontend
+  script:
+    - flutter pub get
+    - cd ios
+    - flutter build ios --release
