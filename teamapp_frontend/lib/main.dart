@@ -25,9 +25,9 @@ class MyHomePage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('Ranu WP', style: Theme.of(context).textTheme.headlineLarge),
+            Text('Ranu WP', style: Theme.of(context).textTheme.headline1),
             Text('ranu.wp@team.com',
-                style: Theme.of(context).textTheme.headlineSmall),
+                style: Theme.of(context).textTheme.headline3),
           ],
         ),
       ),
