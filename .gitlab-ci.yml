@@ -11,7 +11,8 @@ app-build:
   script:
     - cd android
     - ls -la
-    - export GRADLE_USER_HOME=$(pwd)/.gradle
+    - export GRADLE_USER_HOME=$(pwd)/gradle
+    - gradle wrapper
     - chmod +x ./gradlew
     # Build an Android test APK (that's why we've created the MainActivityTest.java)
     - ./gradlew app:assembleAndroidTest
