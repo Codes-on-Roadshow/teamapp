@@ -10,6 +10,9 @@ app-build:
     - cd teamapp_frontend
   script:
     - pushd android
+    - pwd
+    - ls -la
+    - chmod +x ./gradlew
     # Build an Android test APK (that's why we've created the MainActivityTest.java)
     - ./gradlew app:assembleAndroidTest
     # Build a debug APK, passing in the integration test file
