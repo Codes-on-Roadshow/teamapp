@@ -9,9 +9,9 @@ app-build:
   before_script:
     - cd teamapp_frontend
   script:
+    - flutter pub get
     - cd android
-    - ls -la
-    - chmod +x ./gradlew
+    - flutter build apk
     # Build an Android test APK (that's why we've created the MainActivityTest.java)
     - ./gradlew app:assembleAndroidTest
     # Build a debug APK, passing in the integration test file
