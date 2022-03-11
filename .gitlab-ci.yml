@@ -35,8 +35,7 @@ android-integration-test:
       --device model=blueline,version=28,locale=en,orientation=portrait
       --use-orchestrator
 
-ios-build:
-  skip: true
+.ios-build:
   stage: build
   before_script:
     - cd teamapp_frontend
