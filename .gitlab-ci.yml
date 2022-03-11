@@ -1,4 +1,4 @@
-image: cirrusci/flutter:2.8.1
+image: cirrusci/flutter:2.10.3
 
 stages:
   - build
@@ -12,11 +12,8 @@ app-build:
     - flutter pub get
     - cd android
     - flutter build apk
-    # Build an Android test APK (that's why we've created the MainActivityTest.java)
     - ./gradlew app:assembleAndroidTest
-    # Build a debug APK, passing in the integration test file
     - ./gradlew app:assembleDebug -Ptarget="integration_test/profile_test.dart"
-    # Go back to the root of the project
     - cd .. 
   artifacts:
     paths:
@@ -28,14 +25,8 @@ app-integration-test:
   before_script:
     - cd teamapp_frontend
   script:
-    # Authenticate with GKE
     - echo $SERVICE_ACCOUNT_KEY > key.json
     - gcloud auth activate-service-account --key-file=key.json
     - gcloud config set project $PROJECT_ID
-    # Test the app
     - gcloud firebase test android models list
-    - gcloud firebase test android run \
-      --type instrumentation \
-      --app build/app/outputs/apk/debug/app-debug.apk \
-      --test build/app/outputs/apk/androidTest/debug/app-debug-androidTest.apk \
-      --device model=Nexus6,version=21,locale=en,orientation=portrait
+    - gcloud firebase test android run --type instrumentation --app build/app/outputs/apk/debug/app-debug.apk --test build/app/outputs/apk/androidTest/debug/app-debug-androidTest.apk --device model=Nexus6,version=21,locale=en,orientation=portrait
