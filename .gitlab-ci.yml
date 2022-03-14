@@ -13,7 +13,7 @@ android-build:
     - cd android
     - flutter build apk
     - ./gradlew app:assembleAndroidTest
-    - ./gradlew app:assembleDebug -Ptarget="integration_test/profile_test.dart"
+    - ./gradlew app:assembleDebug -Ptarget="integration_test/app_test.dart"
   artifacts:
     paths:
       - teamapp_frontend/build/app/outputs/
