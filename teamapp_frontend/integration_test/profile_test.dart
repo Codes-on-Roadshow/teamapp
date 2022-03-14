@@ -8,8 +8,8 @@ import 'package:team_app/main.dart' as app;
 
 void main() {
   group('Profile', () {
+    IntegrationTestWidgetsFlutterBinding.ensureInitialized();
     testWidgets('Profile page should have name and email', (tester) async {
-      IntegrationTestWidgetsFlutterBinding.ensureInitialized();
       app.main();
       await tester.pumpAndSettle();
       expect(find.text('Ranu WP'), findsOneWidget);
