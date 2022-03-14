@@ -34,6 +34,7 @@ android-integration-test:
       --test build/app/outputs/apk/androidTest/debug/app-debug-androidTest.apk 
       --device model=blueline,version=28,locale=en,orientation=portrait
       --use-orchestrator
+      --timeout 1m
 
 .ios-build:
   stage: build
