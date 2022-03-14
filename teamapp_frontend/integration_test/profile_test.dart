@@ -3,17 +3,16 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:integration_test/integration_test.dart';
-import 'package:team_app/main.dart' as app;
+
+import './step/the_app_is_running.dart';
+import './step/i_see_text.dart';
 
 void main() {
-  IntegrationTestWidgetsFlutterBinding.ensureInitialized();
   group('Profile', () {
     testWidgets('Profile page should have name and email', (tester) async {
-      app.main();
-      await tester.pumpAndSettle();
-      expect(find.text('Ranu WP'), findsOneWidget);
-      expect(find.text('ranu.wp@team.com'), findsOneWidget);
+      await theAppIsRunning(tester);
+      await iSeeText(tester, 'Ranu WP');
+      await iSeeText(tester, 'ranu.wp@team.com');
     });
   });
 }
