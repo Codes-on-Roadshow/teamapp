@@ -32,7 +32,7 @@ android-integration-test:
       --type instrumentation 
       --app build/app/outputs/apk/debug/app-debug.apk 
       --test build/app/outputs/apk/androidTest/debug/app-debug-androidTest.apk 
-      --device model=blueline,version=28,locale=en,orientation=portrait
+      --device model=Pixel3,version=30,locale=en,orientation=portrait
       --use-orchestrator
       --timeout 5m
 
