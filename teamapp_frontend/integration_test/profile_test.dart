@@ -7,8 +7,8 @@ import 'package:integration_test/integration_test.dart';
 import 'package:team_app/main.dart' as app;
 
 void main() {
+  IntegrationTestWidgetsFlutterBinding.ensureInitialized();
   group('Profile', () {
-    IntegrationTestWidgetsFlutterBinding.ensureInitialized();
     testWidgets('Profile page should have name and email', (tester) async {
       app.main();
       await tester.pumpAndSettle();
