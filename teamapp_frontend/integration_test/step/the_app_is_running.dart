@@ -1,6 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:team_app/main.dart';
+import 'package:team_app/main.dart' as app;
 
 Future<void> theAppIsRunning(WidgetTester tester) async {
-  await tester.pumpWidget(const MyApp());
+  app.main();
+  await tester.pumpAndSettle();
 }
