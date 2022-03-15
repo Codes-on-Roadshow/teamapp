@@ -9,11 +9,11 @@ import './step/i_see_text.dart';
 
 void main() {
   group('Home', () {
-    testWidgets('should show name', (tester) async {
+    testWidgets('Home should show name', (tester) async {
       await theAppIsRunning(tester);
       await iSeeText(tester, 'Ranu WP');
     });
-    testWidgets('should show email', (tester) async {
+    testWidgets('Home should show email', (tester) async {
       await theAppIsRunning(tester);
       await iSeeText(tester, 'ranu.wp@team.com');
     });
