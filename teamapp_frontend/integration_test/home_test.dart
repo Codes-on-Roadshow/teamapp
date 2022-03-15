@@ -8,7 +8,7 @@ import './step/the_app_is_running.dart';
 import './step/i_see_text.dart';
 
 void main() {
-  group('Profile', () {
+  group('Home', () {
     testWidgets('should show name', (tester) async {
       await theAppIsRunning(tester);
       await iSeeText(tester, 'Ranu WP');
