@@ -5,3 +5,7 @@ targets:
       - test/**               # so we override paths for code generation here
       - lib/**
       - $package$
+    builders:
+      bdd_widget_test|featureBuilder:
+        options:
+          stepFolderName: ../../step

@@ -1,8 +1,7 @@
 Feature: Profile
-    Scenario: Profile should show name
+    Scenario: Profile should show name, email, and avatar
         Given the app is running
         Then I see {'Ranu WP'} text
-    
-    Scenario: Profile should show email
-        Given the app is running
         And I see {'ranu.wp@team.com'} text
+        And I see {'avatar-image'} image
+    

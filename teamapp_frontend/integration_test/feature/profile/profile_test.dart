@@ -4,18 +4,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import './step/the_app_is_running.dart';
-import './step/i_see_text.dart';
+import './../../step/the_app_is_running.dart';
+import './../../step/i_see_text.dart';
+import './../../step/i_see_image.dart';
 
 void main() {
-  group('Home', () {
-    testWidgets('Home should show name', (tester) async {
+  group('Profile', () {
+    testWidgets('Profile should show name and email', (tester) async {
       await theAppIsRunning(tester);
       await iSeeText(tester, 'Ranu WP');
-    });
-    testWidgets('Home should show email', (tester) async {
-      await theAppIsRunning(tester);
       await iSeeText(tester, 'ranu.wp@team.com');
+      await iSeeImage(tester, 'avatar-image');
     });
   });
 }
