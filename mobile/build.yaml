@@ -1,0 +1,7 @@
+targets:
+  $default:
+    sources:
+      - integration_test/**   # By default, build runner will not generate code in the integration folder
+      - test/**               # so we override paths for code generation here
+      - lib/**
+      - $package$
