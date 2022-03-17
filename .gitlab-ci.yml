@@ -11,7 +11,7 @@ flutter-test:
     - cd mobile
   script:
     - cp -R integration_test test
-    - flutter test -r expanded
+    - flutter test test/main_test.dart -r expanded
 
 android-build:
   stage: build
