@@ -35,6 +35,7 @@ android-integration-test:
       --device model=Pixel3,version=30,locale=en,orientation=portrait
       --use-orchestrator
       --timeout 5m
+  when: manual
 
 .ios-build:
   stage: build
