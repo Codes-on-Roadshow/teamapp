@@ -7,7 +7,7 @@ stages:
 android-build:
   stage: build
   before_script:
-    - cd teamapp_frontend
+    - cd mobile
   script:
     - flutter pub get
     - cd android
@@ -16,13 +16,13 @@ android-build:
     - ./gradlew app:assembleDebug -Ptarget="integration_test/main_test.dart"
   artifacts:
     paths:
-      - teamapp_frontend/build/app/outputs/
+      - mobile/build/app/outputs/
 
 android-integration-test:
   stage: integration-test
   image: google/cloud-sdk
   before_script:
-    - cd teamapp_frontend
+    - cd mobile
   script:
     - echo $SERVICE_ACCOUNT_KEY > key.json
     - gcloud auth activate-service-account --key-file=key.json
@@ -39,7 +39,7 @@ android-integration-test:
 .ios-build:
   stage: build
   before_script:
-    - cd teamapp_frontend
+    - cd mobile
   script:
     - flutter pub get
     - cd ios
