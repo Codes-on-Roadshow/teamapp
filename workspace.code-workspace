@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "teamapp_frontend"
+		},
+		{
+			"path": "backend"
+		}
+	],
+	"settings": {}
+}
