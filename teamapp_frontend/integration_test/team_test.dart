@@ -14,9 +14,10 @@ void main() {
     testWidgets('Create a new team', (tester) async {
       await theAppIsRunning(tester);
       await iTapText(tester, "Create Team");
-      await iEnterIntoInputField(tester, "Team", 0);
+      await iEnterIntoInputField(tester, "Death Note", 0);
+      await iTapText(tester, "Create Team");
       await iSeeText(tester, "Invite your team using this code");
-      await iSeeText(tester, "Team");
+      await iSeeText(tester, "Death Note");
     });
   });
 }

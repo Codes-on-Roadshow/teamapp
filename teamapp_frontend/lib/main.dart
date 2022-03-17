@@ -131,7 +131,7 @@ class WithoutTeamPage extends StatefulWidget {
   }
 }
 
-class _WithoutTeamPageState extends State<WithoutTeamPage>{
+class _WithoutTeamPageState extends State<WithoutTeamPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -157,13 +157,12 @@ class _WithoutTeamPageState extends State<WithoutTeamPage>{
       ),
     );
   }
-
 }
 
 class ExistTeamPage extends StatelessWidget {
   final String team;
 
-  const ExistTeamPage({Key? key, required this.team }) : super(key: key);
+  const ExistTeamPage({Key? key, required this.team}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -195,7 +194,6 @@ class CreateTeamPage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text('papapa'),
             TextField(
               key: const Key('team-name-text-field'),
               decoration: const InputDecoration(

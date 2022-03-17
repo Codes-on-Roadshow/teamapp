@@ -6,5 +6,5 @@ Future<void> iTapText(
   String text,
 ) async {
   await tester.tap(find.text(text));
-  await tester.pump();
+  await tester.pumpAndSettle();
 }
