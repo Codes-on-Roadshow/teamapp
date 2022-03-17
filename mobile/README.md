@@ -26,6 +26,6 @@ flutter packages pub run build_runner watch --delete-conflicting-outputs
 - Run integration test command
 ```
 pushd mobile
-flutter test integration_test/main_test.dart
+flutter test integration_test/main_test.dart -r expanded
 popd
 ```

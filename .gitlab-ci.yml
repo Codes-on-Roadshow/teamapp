@@ -1,8 +1,17 @@
 image: cirrusci/flutter:2.10.3
 
 stages:
+  - test
   - build
   - integration-test
+
+flutter-test:
+  stage: test
+  before_script:
+    - cd mobile
+  script:
+    - cp -R integration_test test
+    - flutter test -r expanded
 
 android-build:
   stage: build
