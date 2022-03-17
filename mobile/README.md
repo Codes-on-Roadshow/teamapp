@@ -1,16 +1,31 @@
-# team_app
+# Team App Mobile
 
-A new Flutter project.
+Mobile Application using Flutter
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+### Install Dependencies
+```
+flutter pub get
+```
 
-A few resources to get you started if this is your first Flutter project:
+### Running Application
+1. Open Android emulator or IOS Simulator
+2. Run flutter script
+```
+flutter run
+```
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+## Behaviour Driven Development (BDD) Generator before develop feature file
+```
+flutter packages pub run build_runner watch --delete-conflicting-outputs
+```
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Integration Test
+- Run your android emulator or IOS simulator
+- Run integration test command
+```
+pushd mobile
+flutter test integration_test/main_test.dart
+popd
+```
