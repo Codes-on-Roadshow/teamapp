@@ -1,4 +1,4 @@
-package com.dkatalis.teamapp
+package com.dkatalis.teamapp.team
 
 import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.bind.annotation.RequestMapping
@@ -7,15 +7,15 @@ import org.springframework.web.bind.annotation.PostMapping
 
 @RestController
 class TeamController {
-    val teams = ArrayList<String>();
+    val teams = ArrayList<String>()
 
     @GetMapping("/teams")
     fun getTeams(): List<String> {
-        return teams;
+        return teams
     }
 
     @PostMapping("/teams")
-    fun postTeams(team: String) {
-        teams.add(team);
+    fun postTeam(team: String) {
+        teams.add(team)
     }
 }
