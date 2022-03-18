@@ -3,6 +3,7 @@ package com.dkatalis.teamapp
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.RequestBody
 
 @RestController
 class UserController {
@@ -14,7 +15,7 @@ class UserController {
     }
 
     @PostMapping("/users")
-    fun postUser(user: String){
+    fun postUser(@RequestBody user: String){
         users.add(user)
     }
 }

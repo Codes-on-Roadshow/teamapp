@@ -4,6 +4,7 @@ import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RequestBody
 
 @RestController
 class TeamController {
@@ -15,7 +16,7 @@ class TeamController {
     }
 
     @PostMapping("/teams")
-    fun postTeam(team: String) {
+    fun postTeam(@RequestBody team: String) {
         teams.add(team)
     }
 }

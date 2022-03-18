@@ -3,6 +3,7 @@ package com.dkatalis.teamapp.pair
 import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RequestBody
 
 @RestController
 class PairController {
@@ -14,7 +15,7 @@ class PairController {
     }
 
     @PostMapping("/pairs")
-    fun postPair(pair: ArrayList<String>){
+    fun postPair(@RequestBody pair: ArrayList<String>){
         pairs.add(pair)
     }
 }
