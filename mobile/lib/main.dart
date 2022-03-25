@@ -12,11 +12,11 @@ void main() async {
     ),
   );
   print('Feature Flags: ${unleash.isEnabled('development')}');
-  runApp(const MyApp());
+  runApp(const App());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class App extends StatelessWidget {
+  const App({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
