@@ -23,9 +23,26 @@ class App extends StatelessWidget {
     return MaterialApp(
       home: const MyStatefulWidget(),
       theme: ThemeData(
-          primaryColor: const Color.fromARGB(255, 129, 50, 194),
-          buttonTheme: const ButtonThemeData(
-              buttonColor: Color.fromARGB(255, 129, 50, 194))),
+        primaryColor: Colors.deepPurple,
+        textSelectionTheme: const TextSelectionThemeData(
+          cursorColor: Colors.deepPurple,
+        ),
+        inputDecorationTheme: InputDecorationTheme(
+          floatingLabelStyle: const TextStyle(color: Colors.deepPurple),
+          focusedBorder: const OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.deepPurple),
+          ),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8),
+          ),
+        ),
+        appBarTheme: const AppBarTheme(
+          color: Colors.deepPurple,
+        ),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(primary: Colors.deepPurple),
+        ),
+      ),
     );
   }
 }
