@@ -6,7 +6,8 @@ void main() async {
     UnleashSettings(
       appName: 'TeamApp',
       instanceId: 'sd6tpX8Y1s1VuqqhUdsK',
-      unleashApi: Uri.parse('https://gitlab.com/api/v4/feature_flags/unleash/32359906'),
+      unleashApi:
+          Uri.parse('https://gitlab.com/api/v4/feature_flags/unleash/32359906'),
       apiToken: '',
     ),
   );
@@ -193,34 +194,46 @@ class ExistTeamPage extends StatelessWidget {
 }
 
 class CreateTeamPage extends StatelessWidget {
-  String _teamName = '';
+  final teamNameController = TextEditingController();
 
   CreateTeamPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            TextField(
-              key: const Key('team-name-text-field'),
-              decoration: const InputDecoration(
-                labelText: 'Team Name',
+      appBar: AppBar(
+        title: const Text('Team Information'),
+      ),
+      body: SafeArea(
+        child: Container(
+          padding: const EdgeInsets.only(right: 16, left: 16),
+          child: Column(
+            children: [
+              Expanded(
+                flex: 1,
+                child: Center(
+                  child: TextField(
+                    key: const Key('team-name-text-field'),
+                    decoration: const InputDecoration(
+                      labelText: 'Team Name',
+                    ),
+                    controller: teamNameController,
+                  ),
+                ),
               ),
-              onChanged: (String teamName) {
-                _teamName = teamName;
-              },
-            ),
-            ElevatedButton(
-              key: const Key('create-team-button'),
-              child: const Text('Create Team'),
-              onPressed: () {
-                Navigator.pop(context, _teamName);
-              },
-            ),
-          ],
+              Expanded(child: Container()),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  key: const Key('create-team-button'),
+                  child: const Text('Create Team'),
+                  onPressed: () {
+                    Navigator.pop(context, teamNameController.text);
+                  },
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
