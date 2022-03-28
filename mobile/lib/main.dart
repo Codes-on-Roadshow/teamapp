@@ -8,7 +8,8 @@ void main() async {
     UnleashSettings(
       appName: 'TeamApp',
       instanceId: 'sd6tpX8Y1s1VuqqhUdsK',
-      unleashApi: Uri.parse('https://gitlab.com/api/v4/feature_flags/unleash/32359906'),
+      unleashApi:
+          Uri.parse('https://gitlab.com/api/v4/feature_flags/unleash/32359906'),
       apiToken: '',
     ),
   );
@@ -19,20 +20,37 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  runApp(const MyApp());
+  runApp(const App());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class App extends StatelessWidget {
+  const App({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: const MyStatefulWidget(),
       theme: ThemeData(
-          primaryColor: const Color.fromARGB(255, 129, 50, 194),
-          buttonTheme: const ButtonThemeData(
-              buttonColor: Color.fromARGB(255, 129, 50, 194))),
+        primaryColor: Colors.deepPurple,
+        textSelectionTheme: const TextSelectionThemeData(
+          cursorColor: Colors.deepPurple,
+        ),
+        inputDecorationTheme: InputDecorationTheme(
+          floatingLabelStyle: const TextStyle(color: Colors.deepPurple),
+          focusedBorder: const OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.deepPurple),
+          ),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8),
+          ),
+        ),
+        appBarTheme: const AppBarTheme(
+          color: Colors.deepPurple,
+        ),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(primary: Colors.deepPurple),
+        ),
+      ),
     );
   }
 }
@@ -201,34 +219,46 @@ class ExistTeamPage extends StatelessWidget {
 }
 
 class CreateTeamPage extends StatelessWidget {
-  String _teamName = '';
+  final teamNameController = TextEditingController();
 
   CreateTeamPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            TextField(
-              key: const Key('team-name-text-field'),
-              decoration: const InputDecoration(
-                labelText: 'Team Name',
+      appBar: AppBar(
+        title: const Text('Team Information'),
+      ),
+      body: SafeArea(
+        child: Container(
+          padding: const EdgeInsets.only(right: 16, left: 16),
+          child: Column(
+            children: [
+              Expanded(
+                flex: 1,
+                child: Center(
+                  child: TextField(
+                    key: const Key('team-name-text-field'),
+                    decoration: const InputDecoration(
+                      labelText: 'Team Name',
+                    ),
+                    controller: teamNameController,
+                  ),
+                ),
               ),
-              onChanged: (String teamName) {
-                _teamName = teamName;
-              },
-            ),
-            ElevatedButton(
-              key: const Key('create-team-button'),
-              child: const Text('Create Team'),
-              onPressed: () {
-                Navigator.pop(context, _teamName);
-              },
-            ),
-          ],
+              Expanded(child: Container()),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  key: const Key('create-team-button'),
+                  child: const Text('Create Team'),
+                  onPressed: () {
+                    Navigator.pop(context, teamNameController.text);
+                  },
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
