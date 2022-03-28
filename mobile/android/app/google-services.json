@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "302449687825",
+    "project_id": "teamapp-92962",
+    "storage_bucket": "teamapp-92962.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:302449687825:android:27aaf9c7b379006acd20b0",
+        "android_client_info": {
+          "package_name": "com.example.team_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "302449687825-t17efb2unjes03tv6832rk6o13esg0n0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCfksSz-lzqoCX99HQrAtXIfWU7ghVngQI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "302449687825-t17efb2unjes03tv6832rk6o13esg0n0.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "302449687825-77f8fk83lae5k46hin89shpgejdhfis6.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.dkatalis.teamapp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
