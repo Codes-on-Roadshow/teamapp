@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:unleash/unleash.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
 void main() async {
   var unleash = await Unleash.init(
@@ -11,6 +13,12 @@ void main() async {
     ),
   );
   print('Feature Flags: ${unleash.isEnabled('development')}');
+
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
   runApp(const MyApp());
 }
 

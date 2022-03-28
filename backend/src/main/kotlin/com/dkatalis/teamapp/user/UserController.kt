@@ -1,4 +1,4 @@
-package com.dkatalis.teamapp
+package com.dkatalis.teamapp.user
 
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.GetMapping
