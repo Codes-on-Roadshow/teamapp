@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:unleash/unleash.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:get/get.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -28,7 +29,7 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       home: const MyStatefulWidget(),
       theme: ThemeData(
         primaryColor: Colors.deepPurple,
@@ -179,12 +180,7 @@ class _WithoutTeamPageState extends State<WithoutTeamPage> {
               key: const Key('create-team-button'),
               child: const Text('Create Team'),
               onPressed: () async {
-                var result = await Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => CreateTeamPage(),
-                  ),
-                );
+                var result = await Get.to(() => CreateTeamPage());
                 widget.createTeam(result);
               },
             ),
@@ -253,7 +249,7 @@ class CreateTeamPage extends StatelessWidget {
                   key: const Key('create-team-button'),
                   child: const Text('Create Team'),
                   onPressed: () {
-                    Navigator.pop(context, teamNameController.text);
+                    Get.back(result: teamNameController.text);
                   },
                 ),
               ),
