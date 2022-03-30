@@ -7,9 +7,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:302449687825:android:27aaf9c7b379006acd20b0",
+        "mobilesdk_app_id": "1:302449687825:android:7bb3ac61443781e5cd20b0",
         "android_client_info": {
-          "package_name": "com.example.team_app"
+          "package_name": "com.dkatalis.teamapp"
         }
       },
       "oauth_client": [

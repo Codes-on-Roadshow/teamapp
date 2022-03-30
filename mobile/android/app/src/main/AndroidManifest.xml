@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.team_app">
+    package="com.dkatalis.teamapp">
    <application
         android:label="team_app"
         android:icon="@mipmap/ic_launcher">
