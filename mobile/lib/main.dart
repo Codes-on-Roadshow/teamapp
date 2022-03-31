@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:team_app/controller/team_controller.dart';
+import 'package:teamapp/controller/team_controller.dart';
 import 'package:unleash/unleash.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get.dart';
