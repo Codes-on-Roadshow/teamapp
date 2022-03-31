@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:team_app/utils/authentication.dart';
+import 'package:flutterfire_ui/auth.dart';
 import 'package:unleash/unleash.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
@@ -18,144 +18,19 @@ void main() async {
   print('Feature Flags: ${unleash.isEnabled('development')}');
 
   WidgetsFlutterBinding.ensureInitialized();
+
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
+  FlutterFireUIAuth.configureProviders([
+    const EmailProviderConfiguration(),
+    const GoogleProviderConfiguration(
+        clientId:
+            '302449687825-t17efb2unjes03tv6832rk6o13esg0n0.apps.googleusercontent.com'),
+  ]);
+
   runApp(const App());
-}
-
-class SignInScreen extends StatefulWidget {
-  const SignInScreen({Key? key}) : super(key: key);
-
-  @override
-  _SignInScreenState createState() => _SignInScreenState();
-}
-
-class _SignInScreenState extends State<SignInScreen> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Color.fromARGB(255, 255, 197, 197),
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.only(
-            left: 16.0,
-            right: 16.0,
-            bottom: 20.0,
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              Row(),
-              Expanded(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
-                    SizedBox(height: 20),
-                    Text(
-                      'FlutterFire',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 40,
-                      ),
-                    ),
-                    Text(
-                      'Authentication',
-                      style: TextStyle(
-                        color: Colors.amber,
-                        fontSize: 40,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              const GoogleSignInButton()
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class GoogleSignInButton extends StatefulWidget {
-  const GoogleSignInButton({Key? key}) : super(key: key);
-
-  @override
-  _GoogleSignInButtonState createState() => _GoogleSignInButtonState();
-}
-
-class _GoogleSignInButtonState extends State<GoogleSignInButton> {
-  bool _isSigningIn = false;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 16.0),
-      child: _isSigningIn
-          ? const CircularProgressIndicator(
-              valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-            )
-          : OutlinedButton(
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(Colors.white),
-                shape: MaterialStateProperty.all(
-                  RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(40),
-                  ),
-                ),
-              ),
-              onPressed: () async {
-                setState(() {
-                  _isSigningIn = true;
-                });
-
-                User? user =
-                    await Authentication.signInWithGoogle(context: context);
-
-                setState(() {
-                  _isSigningIn = false;
-                });
-
-                if (user != null) {
-                  Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(
-                      builder: (context) => ProfilePage(
-                        user: user,
-                      ),
-                    ),
-                  );
-                }
-              },
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: const <Widget>[
-                    Image(
-                      image: NetworkImage("https://www.freepnglogos.com/uploads/google-logo-png/google-logo-png-webinar-optimizing-for-success-google-business-webinar-13.png"),
-                      height: 35.0,
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(left: 10),
-                      child: Text(
-                        'Sign in with Google',
-                        style: TextStyle(
-                          fontSize: 20,
-                          color: Colors.black54,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    )
-                  ],
-                ),
-              ),
-            ),
-    );
-  }
 }
 
 class App extends StatelessWidget {
@@ -164,7 +39,8 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: const SignInScreen(),
+      home: const MyStatefulWidget(),
+      // home: const AuthGate(),
       theme: ThemeData(
         primaryColor: Colors.deepPurple,
         textSelectionTheme: const TextSelectionThemeData(
@@ -190,6 +66,45 @@ class App extends StatelessWidget {
   }
 }
 
+class AuthGate extends StatelessWidget {
+  const AuthGate({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder<User?>(
+      stream: FirebaseAuth.instance.authStateChanges(),
+      initialData: FirebaseAuth.instance.currentUser,
+      builder: (context, snapshot) {
+        if (!snapshot.hasData) {
+          return SignInScreen(
+            headerBuilder: (context, constraints, _) {
+              return Padding(
+                padding: const EdgeInsets.all(10),
+                child: AspectRatio(
+                  aspectRatio: 1,
+                  child: Image.network('https://i.ibb.co/C5v8m0y/team-app.png'),
+                ),
+              );
+            },
+            subtitleBuilder: (context, action) {
+              return Padding(
+                padding: const EdgeInsets.only(bottom: 8),
+                child: Text(
+                  action == AuthAction.signIn
+                      ? 'Welcome to TeamApp! Please sign in to continue.'
+                      : 'Welcome to TeamApp! Please create an account to continue',
+                ),
+              );
+            },
+          );
+        }
+
+        return const MyStatefulWidget();
+      },
+    );
+  }
+}
+
 class MyStatefulWidget extends StatefulWidget {
   const MyStatefulWidget({Key? key}) : super(key: key);
 
@@ -199,8 +114,8 @@ class MyStatefulWidget extends StatefulWidget {
 
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   int _selectedIndex = 0;
-  static const List<Widget> _widgetOptions = <Widget>[
-    TeamPage(),
+  static final List<Widget> _widgetOptions = <Widget>[
+    const TeamPage(),
     ProfilePage()
   ];
 
@@ -236,9 +151,8 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
 }
 
 class ProfilePage extends StatelessWidget {
-  const ProfilePage({Key? key, User? user}) : _user = user, super(key: key);
-
-  final User? _user;
+  ProfilePage({Key? key}) : super(key: key);
+  final FirebaseAuth auth = FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -246,17 +160,25 @@ class ProfilePage extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Padding(
-            padding: EdgeInsets.all(16.0),
-            child: CircleAvatar(
-              key: Key('avatar-image'),
-              maxRadius: 50,
-              backgroundImage: NetworkImage('https://placekitten.com/200/200'),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: UserAvatar(
+              key: const Key('avatar-image'),
+              auth: auth,
             ),
           ),
-          Text(_user!.displayName!, style: Theme.of(context).textTheme.headline3),
-          Text(_user!.email!,
+          Text(auth.currentUser?.displayName ?? '',
+              style: Theme.of(context).textTheme.headline3),
+          Text(auth.currentUser?.email ?? '',
               style: Theme.of(context).textTheme.headline5),
+          ElevatedButton(
+            key: const Key('sign-out-button'),
+            child: const Text('Sign Out'),
+            onPressed: () => FlutterFireUIAuth.signOut(
+              context: context,
+              auth: auth,
+            ),
+          ),
         ],
       ),
     );

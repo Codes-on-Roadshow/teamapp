@@ -5,4 +5,5 @@ Feature: Profile
         Then I see {'Ranu WP'} text
         And I see {'ranu.wp@team.com'} text
         And I see {'avatar-image'} image
+        And I see {'Sign Out'} text
     

@@ -17,6 +17,7 @@ void main() {
       await iSeeText(tester, 'Ranu WP');
       await iSeeText(tester, 'ranu.wp@team.com');
       await iSeeImage(tester, 'avatar-image');
+      await iSeeText(tester, 'Sign Out');
     });
   });
 }
