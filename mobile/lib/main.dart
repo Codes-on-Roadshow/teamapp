@@ -42,7 +42,7 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     Get.put(TeamController());
     return GetMaterialApp(
-      home: const AuthGate(),
+      home: HomePage(),
       theme: ThemeData(
         primaryColor: Colors.deepPurple,
         textSelectionTheme: const TextSelectionThemeData(
@@ -146,7 +146,8 @@ class HomePage extends StatelessWidget {
 
 class ProfilePage extends StatelessWidget {
   ProfilePage({Key? key}) : super(key: key);
-  final FirebaseAuth auth = FirebaseAuth.instance;
+  //final FirebaseAuth auth = FirebaseAuth.instance;
+  var auth;
 
   @override
   Widget build(BuildContext context) {
@@ -154,16 +155,21 @@ class ProfilePage extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: UserAvatar(
-              key: const Key('avatar-image'),
-              auth: auth,
-            ),
-          ),
-          Text(auth.currentUser?.displayName ?? '',
+          const Padding(
+              padding: EdgeInsets.all(16.0),
+              // child: UserAvatar(
+              //   key: const Key('avatar-image'),
+              //   auth: auth,
+              // ),
+              child: CircleAvatar(
+                key: Key('avatar-image'),
+                maxRadius: 50,
+                backgroundImage:
+                    NetworkImage('https://placekitten.com/200/200'),
+              )),
+          Text(auth?.currentUser?.displayName ?? 'Ranu WP',
               style: Theme.of(context).textTheme.headline3),
-          Text(auth.currentUser?.email ?? '',
+          Text(auth?.currentUser?.email ?? 'ranu.wp@team.com',
               style: Theme.of(context).textTheme.headline5),
           ElevatedButton(
             key: const Key('sign-out-button'),
@@ -278,7 +284,8 @@ class CreateTeamPage extends StatelessWidget {
                   key: const Key('create-team-button'),
                   child: const Text('Create Team'),
                   onPressed: () {
-                    teamController.createTeam(teamNameTextEditingController.text);
+                    teamController
+                        .createTeam(teamNameTextEditingController.text);
                     Get.offAll(() => HomePage());
                   },
                 ),
