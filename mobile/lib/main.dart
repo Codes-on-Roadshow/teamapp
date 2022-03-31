@@ -174,10 +174,13 @@ class ProfilePage extends StatelessWidget {
           ElevatedButton(
             key: const Key('sign-out-button'),
             child: const Text('Sign Out'),
-            onPressed: () => FlutterFireUIAuth.signOut(
-              context: context,
-              auth: auth,
-            ),
+            onPressed: () {
+              FlutterFireUIAuth.signOut(
+                context: context,
+                auth: auth,
+              );
+              Get.to(() => const AuthGate());
+            },
           ),
         ],
       ),
