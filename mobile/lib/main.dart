@@ -1,8 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterfire_ui/auth.dart';
+import 'package:teamapp/controller/team_controller.dart';
 import 'package:unleash/unleash.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:get/get.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -38,9 +40,9 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: const MyStatefulWidget(),
-      // home: const AuthGate(),
+    Get.put(TeamController());
+    return GetMaterialApp(
+      home: const AuthGate(),
       theme: ThemeData(
         primaryColor: Colors.deepPurple,
         textSelectionTheme: const TextSelectionThemeData(
@@ -99,52 +101,44 @@ class AuthGate extends StatelessWidget {
           );
         }
 
-        return const MyStatefulWidget();
+        return HomePage();
       },
     );
   }
 }
 
-class MyStatefulWidget extends StatefulWidget {
-  const MyStatefulWidget({Key? key}) : super(key: key);
+class HomePage extends StatelessWidget {
+  List<Widget> tabBarOptions = <Widget>[TeamPage(), ProfilePage()];
+  var selectedTabIndex = 0.obs;
 
-  @override
-  State<MyStatefulWidget> createState() => _MyStatefulWidgetState();
-}
+  HomePage({Key? key}) : super(key: key);
 
-class _MyStatefulWidgetState extends State<MyStatefulWidget> {
-  int _selectedIndex = 0;
-  static final List<Widget> _widgetOptions = <Widget>[
-    const TeamPage(),
-    ProfilePage()
-  ];
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
+  void changeTab(int newTabIndex) {
+    selectedTabIndex.value = newTabIndex;
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.group),
-            label: 'Team',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profile',
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Theme.of(context).primaryColor,
-        onTap: _onItemTapped,
+    return Obx(
+      () => Scaffold(
+        body: Center(
+          child: tabBarOptions.elementAt(selectedTabIndex.value),
+        ),
+        bottomNavigationBar: BottomNavigationBar(
+          items: const <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: Icon(Icons.group),
+              label: 'Team',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.person),
+              label: 'Profile',
+            ),
+          ],
+          currentIndex: selectedTabIndex.value,
+          selectedItemColor: Theme.of(context).primaryColor,
+          onTap: changeTab,
+        ),
       ),
     );
   }
@@ -185,48 +179,25 @@ class ProfilePage extends StatelessWidget {
   }
 }
 
-class TeamPage extends StatefulWidget {
-  const TeamPage({Key? key}) : super(key: key);
+class TeamPage extends StatelessWidget {
+  TeamController teamController = Get.find();
 
-  @override
-  State<StatefulWidget> createState() {
-    return _TeamPageState();
-  }
-}
-
-class _TeamPageState extends State<TeamPage> {
-  dynamic _team;
-
-  void _createTeam(String teamName) {
-    setState(() {
-      _team = teamName;
-    });
-  }
+  TeamPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    if (_team != null) {
-      return ExistTeamPage(team: _team);
+    if (teamController.team != null) {
+      return ExistTeamPage();
     }
-    return WithoutTeamPage(createTeam: _createTeam);
+    return WithoutTeamPage();
   }
 }
 
-class WithoutTeamPage extends StatefulWidget {
-  final Function(String teamName) createTeam;
-
-  const WithoutTeamPage({
+class WithoutTeamPage extends StatelessWidget {
+  WithoutTeamPage({
     Key? key,
-    required this.createTeam,
   }) : super(key: key);
 
-  @override
-  State<StatefulWidget> createState() {
-    return _WithoutTeamPageState();
-  }
-}
-
-class _WithoutTeamPageState extends State<WithoutTeamPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -238,13 +209,7 @@ class _WithoutTeamPageState extends State<WithoutTeamPage> {
               key: const Key('create-team-button'),
               child: const Text('Create Team'),
               onPressed: () async {
-                var result = await Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => CreateTeamPage(),
-                  ),
-                );
-                widget.createTeam(result);
+                Get.to(() => CreateTeamPage());
               },
             ),
           ],
@@ -255,15 +220,15 @@ class _WithoutTeamPageState extends State<WithoutTeamPage> {
 }
 
 class ExistTeamPage extends StatelessWidget {
-  final String team;
+  TeamController teamController = Get.find();
 
-  const ExistTeamPage({Key? key, required this.team}) : super(key: key);
+  ExistTeamPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(team),
+        title: Text(teamController.team),
       ),
       body: Center(
         child: Column(
@@ -278,7 +243,8 @@ class ExistTeamPage extends StatelessWidget {
 }
 
 class CreateTeamPage extends StatelessWidget {
-  final teamNameController = TextEditingController();
+  final teamNameTextEditingController = TextEditingController();
+  TeamController teamController = Get.find();
 
   CreateTeamPage({Key? key}) : super(key: key);
 
@@ -301,7 +267,7 @@ class CreateTeamPage extends StatelessWidget {
                     decoration: const InputDecoration(
                       labelText: 'Team Name',
                     ),
-                    controller: teamNameController,
+                    controller: teamNameTextEditingController,
                   ),
                 ),
               ),
@@ -312,7 +278,8 @@ class CreateTeamPage extends StatelessWidget {
                   key: const Key('create-team-button'),
                   child: const Text('Create Team'),
                   onPressed: () {
-                    Navigator.pop(context, teamNameController.text);
+                    teamController.createTeam(teamNameTextEditingController.text);
+                    Get.offAll(() => HomePage());
                   },
                 ),
               ),

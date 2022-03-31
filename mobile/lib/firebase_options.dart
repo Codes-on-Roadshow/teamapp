@@ -39,7 +39,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions web = FirebaseOptions(
     apiKey: 'AIzaSyAjFg8Zu9WeQPRwsxcpJIpdZfyq9WPmUTU',
-    appId: '1:302449687825:web:856005b37fbcfca7cd20b0',
+    appId: '1:302449687825:web:113050f0d3ef67c0cd20b0',
     messagingSenderId: '302449687825',
     projectId: 'teamapp-92962',
     authDomain: 'teamapp-92962.firebaseapp.com',
@@ -48,7 +48,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyCfksSz-lzqoCX99HQrAtXIfWU7ghVngQI',
-    appId: '1:302449687825:android:27aaf9c7b379006acd20b0',
+    appId: '1:302449687825:android:7bb3ac61443781e5cd20b0',
     messagingSenderId: '302449687825',
     projectId: 'teamapp-92962',
     storageBucket: 'teamapp-92962.appspot.com',
@@ -56,11 +56,12 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyCl2Kvsj5gKp7IDXAD-MgtwLSxbQiaE7Xg',
-    appId: '1:302449687825:ios:751caf583f6938b4cd20b0',
+    appId: '1:302449687825:ios:c353ea1ef7ef019ccd20b0',
     messagingSenderId: '302449687825',
     projectId: 'teamapp-92962',
     storageBucket: 'teamapp-92962.appspot.com',
-    iosClientId: '302449687825-vj85hq6gsc117bflvn1gsap7bkfm4epd.apps.googleusercontent.com',
-    iosBundleId: 'com.example.teamApp',
+    androidClientId: '302449687825-plmm0343tcbo37j63ncnu6qu4vlk30k1.apps.googleusercontent.com',
+    iosClientId: '302449687825-77f8fk83lae5k46hin89shpgejdhfis6.apps.googleusercontent.com',
+    iosBundleId: 'com.dkatalis.teamapp',
   );
 }

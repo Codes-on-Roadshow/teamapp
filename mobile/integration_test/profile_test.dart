@@ -11,7 +11,7 @@ import './step/i_see_image.dart';
 
 void main() {
   group('Profile', () {
-    testWidgets('Profile should show name, email, and avatar', (tester) async {
+    testWidgets('should show name, email, avatar, and sign out', (tester) async {
       await theAppIsRunning(tester);
       await iTapIcon(tester, Icons.person);
       await iSeeText(tester, 'Ranu WP');

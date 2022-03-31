@@ -1,6 +1,6 @@
 {
-    "name": "team_app",
-    "short_name": "team_app",
+    "name": "teamapp",
+    "short_name": "teamapp",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

@@ -4,11 +4,13 @@
 			"path": "."
 		},
 		{
-			"path": "teamapp_frontend"
+			"path": "backend"
 		},
 		{
-			"path": "backend"
+			"path": "mobile"
 		}
 	],
-	"settings": {}
+	"settings": {
+		"java.configuration.updateBuildConfiguration": "interactive"
+	}
 }
