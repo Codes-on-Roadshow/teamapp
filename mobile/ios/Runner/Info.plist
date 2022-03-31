@@ -49,10 +49,15 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.googleusercontent.apps.302449687825-vj85hq6gsc117bflvn1gsap7bkfm4epd</string>
+				<string>com.googleusercontent.apps.302449687825-77f8fk83lae5k46hin89shpgejdhfis6</string>
 			</array>
 		</dict>
 	</array>
 	<!-- End of the Google Sign-In section -->
+	<key>NSAppTransportSecurity</key>
+	<dict>
+    	<key>NSAllowsLocalNetworking</key>
+    	<true/>
+	</dict>
 </dict>
 </plist>
