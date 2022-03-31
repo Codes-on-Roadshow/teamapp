@@ -1,5 +1,5 @@
 Feature: Profile
-    Scenario: Profile should show name, email, and avatar
+    Scenario: should show name, email, and avatar
         Given the app is running
         When I tap {Icons.person} icon
         Then I see {'Ranu WP'} text
