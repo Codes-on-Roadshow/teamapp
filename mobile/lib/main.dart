@@ -8,17 +8,6 @@ import 'package:get/get.dart';
 import 'firebase_options.dart';
 
 void main() async {
-  var unleash = await Unleash.init(
-    UnleashSettings(
-      appName: 'TeamApp',
-      instanceId: 'sd6tpX8Y1s1VuqqhUdsK',
-      unleashApi:
-          Uri.parse('https://gitlab.com/api/v4/feature_flags/unleash/32359906'),
-      apiToken: '',
-    ),
-  );
-  print('Feature Flags: ${unleash.isEnabled('development')}');
-
   WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp(
