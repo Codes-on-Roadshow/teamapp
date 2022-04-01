@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "302449687825-tpv73tk8n3ov8pd14o0lu9nbad32oq8v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.dkatalis.teamapp",
+            "certificate_hash": "d7c0bbd7ac3f99e2d50812f4b8ec803ce0488d7a"
+          }
+        },
+        {
           "client_id": "302449687825-t17efb2unjes03tv6832rk6o13esg0n0.apps.googleusercontent.com",
           "client_type": 3
         }

@@ -14,7 +14,6 @@ void main() async {
   );
 
   FlutterFireUIAuth.configureProviders([
-    const EmailProviderConfiguration(),
     const GoogleProviderConfiguration(
         clientId:
             '302449687825-t17efb2unjes03tv6832rk6o13esg0n0.apps.googleusercontent.com'),
@@ -30,7 +29,7 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     Get.put(TeamController());
     return GetMaterialApp(
-      home: HomePage(),
+      home: const AuthGate(),
       theme: ThemeData(
         primaryColor: Colors.deepPurple,
         textSelectionTheme: const TextSelectionThemeData(
@@ -65,6 +64,7 @@ class AuthGate extends StatelessWidget {
       stream: FirebaseAuth.instance.authStateChanges(),
       initialData: FirebaseAuth.instance.currentUser,
       builder: (context, snapshot) {
+        print(snapshot.error);
         if (!snapshot.hasData) {
           return SignInScreen(
             headerBuilder: (context, constraints, _) {
@@ -79,11 +79,7 @@ class AuthGate extends StatelessWidget {
             subtitleBuilder: (context, action) {
               return Padding(
                 padding: const EdgeInsets.only(bottom: 8),
-                child: Text(
-                  action == AuthAction.signIn
-                      ? 'Welcome to TeamApp! Please sign in to continue.'
-                      : 'Welcome to TeamApp! Please create an account to continue',
-                ),
+                child: Text('Welcome to TeamApp! Please sign in to continue.'),
               );
             },
           );
