@@ -2,7 +2,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterfire_ui/auth.dart';
 import 'package:teamapp/controller/team_controller.dart';
-import 'package:unleash/unleash.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get.dart';
 import 'firebase_options.dart';
@@ -163,12 +162,12 @@ class ProfilePage extends StatelessWidget {
           ElevatedButton(
             key: const Key('sign-out-button'),
             child: const Text('Sign Out'),
-            onPressed: () {
-              FlutterFireUIAuth.signOut(
+            onPressed: () async {
+              await FlutterFireUIAuth.signOut(
                 context: context,
                 auth: auth,
               );
-              Get.to(() => const AuthGate());
+              Get.offAll(() => const AuthGate());
             },
           ),
         ],
