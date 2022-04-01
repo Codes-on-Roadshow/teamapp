@@ -130,8 +130,7 @@ class HomePage extends StatelessWidget {
 
 class ProfilePage extends StatelessWidget {
   ProfilePage({Key? key}) : super(key: key);
-  //final FirebaseAuth auth = FirebaseAuth.instance;
-  var auth;
+  final FirebaseAuth auth = FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -139,21 +138,16 @@ class ProfilePage extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Padding(
-              padding: EdgeInsets.all(16.0),
-              // child: UserAvatar(
-              //   key: const Key('avatar-image'),
-              //   auth: auth,
-              // ),
-              child: CircleAvatar(
-                key: Key('avatar-image'),
-                maxRadius: 50,
-                backgroundImage:
-                    NetworkImage('https://placekitten.com/200/200'),
-              )),
-          Text(auth?.currentUser?.displayName ?? 'Ranu WP',
-              style: Theme.of(context).textTheme.headline3),
-          Text(auth?.currentUser?.email ?? 'ranu.wp@team.com',
+          Padding(
+            padding: EdgeInsets.all(16.0),
+            child: UserAvatar(
+              key: Key('avatar-image'),
+              auth: auth,
+            ),
+          ),
+          Text(auth?.currentUser?.displayName ?? '',
+              style: Theme.of(context).textTheme.headline4),
+          Text(auth?.currentUser?.email ?? '',
               style: Theme.of(context).textTheme.headline5),
           ElevatedButton(
             key: const Key('sign-out-button'),
