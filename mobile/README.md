@@ -23,6 +23,10 @@ flutter packages pub run build_runner watch --delete-conflicting-outputs
 
 ## Integration Test
 - Run your android emulator or IOS simulator
+- Run firebase emulator
+```
+firebase emulators:start
+```
 - Run integration test command
 ```
 pushd mobile

@@ -6,7 +6,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get.dart';
 import 'firebase_options.dart';
 
-void main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp(
@@ -18,7 +18,6 @@ void main() async {
         clientId:
             '302449687825-t17efb2unjes03tv6832rk6o13esg0n0.apps.googleusercontent.com'),
   ]);
-
   runApp(const App());
 }
 
@@ -64,9 +63,9 @@ class AuthGate extends StatelessWidget {
       stream: FirebaseAuth.instance.authStateChanges(),
       initialData: FirebaseAuth.instance.currentUser,
       builder: (context, snapshot) {
-        print(snapshot.error);
         if (!snapshot.hasData) {
           return SignInScreen(
+            showAuthActionSwitch: false,
             headerBuilder: (context, constraints, _) {
               return Padding(
                 padding: const EdgeInsets.all(10),
@@ -153,10 +152,7 @@ class ProfilePage extends StatelessWidget {
             key: const Key('sign-out-button'),
             child: const Text('Sign Out'),
             onPressed: () async {
-              await FlutterFireUIAuth.signOut(
-                context: context,
-                auth: auth,
-              );
+              await FlutterFireUIAuth.signOut();
               Get.offAll(() => const AuthGate());
             },
           ),

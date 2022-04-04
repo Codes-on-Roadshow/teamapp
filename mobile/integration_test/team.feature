@@ -1,6 +1,7 @@
 Feature: Team
     Scenario: Create a new team
         Given the app is running
+        And I login
         And I tap {"Create Team"} text
         When I enter {"Death Note"} into {0} input field
         And I tap {"Create Team"} text
