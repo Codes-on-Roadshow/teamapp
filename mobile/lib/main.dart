@@ -76,8 +76,8 @@ class AuthGate extends StatelessWidget {
               );
             },
             subtitleBuilder: (context, action) {
-              return Padding(
-                padding: const EdgeInsets.only(bottom: 8),
+              return const Padding(
+                padding: EdgeInsets.only(bottom: 8),
                 child: Text('Welcome to TeamApp! Please sign in to continue.'),
               );
             },
@@ -138,15 +138,15 @@ class ProfilePage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Padding(
-            padding: EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(16.0),
             child: UserAvatar(
-              key: Key('avatar-image'),
+              key: const Key('avatar-image'),
               auth: auth,
             ),
           ),
-          Text(auth?.currentUser?.displayName ?? '',
+          Text(auth.currentUser?.displayName ?? '',
               style: Theme.of(context).textTheme.headline4),
-          Text(auth?.currentUser?.email ?? '',
+          Text(auth.currentUser?.email ?? '',
               style: Theme.of(context).textTheme.headline5),
           ElevatedButton(
             key: const Key('sign-out-button'),

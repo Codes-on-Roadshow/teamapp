@@ -12,7 +12,7 @@ import './step/i_see_image.dart';
 
 void main() {
   group('Profile', () {
-    testWidgets('should show name, email, and avatar', (tester) async {
+    testWidgets('should show name, email, avatar and sign out', (tester) async {
       await theAppIsRunning(tester);
       await iLogin(tester);
       await iTapIcon(tester, Icons.person);
