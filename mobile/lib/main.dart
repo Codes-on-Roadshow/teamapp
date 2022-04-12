@@ -91,8 +91,8 @@ class AuthGate extends StatelessWidget {
 }
 
 class HomePage extends StatelessWidget {
-  List<Widget> tabBarOptions = <Widget>[TeamPage(), ProfilePage()];
-  var selectedTabIndex = 0.obs;
+  final List<Widget> tabBarOptions = <Widget>[TeamPage(), ProfilePage()];
+  final selectedTabIndex = 0.obs;
 
   HomePage({Key? key}) : super(key: key);
 
@@ -163,7 +163,7 @@ class ProfilePage extends StatelessWidget {
 }
 
 class TeamPage extends StatelessWidget {
-  TeamController teamController = Get.find();
+  final TeamController teamController = Get.find();
 
   TeamPage({Key? key}) : super(key: key);
 
@@ -172,12 +172,12 @@ class TeamPage extends StatelessWidget {
     if (teamController.team != null) {
       return ExistTeamPage();
     }
-    return WithoutTeamPage();
+    return const WithoutTeamPage();
   }
 }
 
 class WithoutTeamPage extends StatelessWidget {
-  WithoutTeamPage({
+  const WithoutTeamPage({
     Key? key,
   }) : super(key: key);
 
@@ -203,7 +203,7 @@ class WithoutTeamPage extends StatelessWidget {
 }
 
 class ExistTeamPage extends StatelessWidget {
-  TeamController teamController = Get.find();
+  final TeamController teamController = Get.find();
 
   ExistTeamPage({Key? key}) : super(key: key);
 
@@ -227,7 +227,7 @@ class ExistTeamPage extends StatelessWidget {
 
 class CreateTeamPage extends StatelessWidget {
   final teamNameTextEditingController = TextEditingController();
-  TeamController teamController = Get.find();
+  final TeamController teamController = Get.find();
 
   CreateTeamPage({Key? key}) : super(key: key);
 
