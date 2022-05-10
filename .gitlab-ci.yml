@@ -18,6 +18,18 @@ android-build:
     paths:
       - mobile/build/app/outputs/
 
+backend-build:
+  image: docker
+  services:
+        - docker:dind
+  stage: build
+  before_script:
+    - cd backend
+  script: 
+    - echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME
+    - docker build -t registry.gitlab.com/dkata/teamapp/backend:latest .
+    - docker push registry.gitlab.com/dkata/teamapp/backend:latest
+
 android-integration-test:
   stage: integration-test
   image: google/cloud-sdk
