@@ -26,7 +26,7 @@ backend-build:
   before_script:
     - cd backend
   script: 
-    - echo $DOCKER_PASSWORD | docker login registry.gitlab.com -u $DOCKER_USERNAME
+    - echo $DOCKER_PASSWORD | docker login registry.gitlab.com -u $DOCKER_USERNAME --password-stdin
     - docker build -t registry.gitlab.com/dkata/teamapp/backend:latest .
     - docker push registry.gitlab.com/dkata/teamapp/backend:latest
 
