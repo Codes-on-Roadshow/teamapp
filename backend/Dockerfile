@@ -1,6 +1,7 @@
 FROM maven:3.8-openjdk-17 as builder
 
 ADD . /
+RUN ls
 RUN mvn install package -q
 
 FROM openjdk:17-alpine
