@@ -7,7 +7,7 @@ import 'authentication_test.dart' as authentication_test;
 
 void main() async {
   await Firebase.initializeApp();
-  await FirebaseAuth.instance.useAuthEmulator('localhost', 9099);
+  await FirebaseAuth.instance.useAuthEmulator('194.233.65.0', 32001);
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
   authentication_test.main();
   profile_test.main();
