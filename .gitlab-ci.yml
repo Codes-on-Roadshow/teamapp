@@ -22,6 +22,8 @@ android-build:
 android-integration-test:
   stage: integration-test
   image: google/cloud-sdk
+  needs:
+    - android-build
   before_script:
     - cd mobile
   script:
@@ -65,6 +67,8 @@ backend-deploy:
   image:
     name: bitnami/kubectl:latest
   stage: deploy
+  needs:
+    - backend-build
   before_script:
     - cp $KUBERNETES_CONFIG $HOME/.kube/config
     - cd backend
