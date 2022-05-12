@@ -5,7 +5,7 @@ stages:
   - integration-test
   - deploy
 
-android-build:
+.android-build:
   stage: build
   before_script:
     - cd mobile
@@ -19,7 +19,7 @@ android-build:
     paths:
       - mobile/build/app/outputs/
 
-android-integration-test:
+.android-integration-test:
   stage: integration-test
   image: google/cloud-sdk
   needs:
@@ -74,3 +74,4 @@ backend-deploy:
     - cd backend
   script: 
     - kubectl apply -f deploy/production.yaml
+    - kubectl rollout restart deployment backend -n teamapp
