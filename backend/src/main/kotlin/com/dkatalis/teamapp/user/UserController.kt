@@ -18,9 +18,4 @@ class UserController {
     fun postUser(@RequestBody user: String){
         users.add(user)
     }
-
-    @GetMapping("/check")
-    fun check(): String {
-        return "True";
-    }
 }
