@@ -3,6 +3,7 @@ image: cirrusci/flutter:2.10.3
 stages:
   - build
   - integration-test
+  - deploy
 
 android-build:
   stage: build
@@ -17,20 +18,6 @@ android-build:
   artifacts:
     paths:
       - mobile/build/app/outputs/
-
-backend-build:
-  image: gcr.io/kaniko-project/executor:debug
-  stage: build
-  before_script:
-    - cd backend
-  script: 
-    - mkdir -p /kaniko/.docker
-    - echo "{\"auths\":{\"${CI_REGISTRY}\":{\"auth\":\"$(printf "%s:%s" "${CI_REGISTRY_USER}" "${CI_REGISTRY_PASSWORD}" | base64 | tr -d '\n')\"}}}" > /kaniko/.docker/config.json
-    - >-
-      /kaniko/executor
-      --context "${CI_PROJECT_DIR}/backend"
-      --dockerfile "${CI_PROJECT_DIR}/backend/Dockerfile"
-      --destination "${CI_REGISTRY_IMAGE}/backend:latest"
 
 android-integration-test:
   stage: integration-test
@@ -59,3 +46,27 @@ android-integration-test:
     - flutter pub get
     - cd ios
     - flutter build ios --release
+
+backend-build:
+  image: gcr.io/kaniko-project/executor:debug
+  stage: build
+  before_script:
+    - cd backend
+  script: 
+    - mkdir -p /kaniko/.docker
+    - echo "{\"auths\":{\"${CI_REGISTRY}\":{\"auth\":\"$(printf "%s:%s" "${CI_REGISTRY_USER}" "${CI_REGISTRY_PASSWORD}" | base64 | tr -d '\n')\"}}}" > /kaniko/.docker/config.json
+    - >-
+      /kaniko/executor
+      --context "${CI_PROJECT_DIR}/backend"
+      --dockerfile "${CI_PROJECT_DIR}/backend/Dockerfile"
+      --destination "${CI_REGISTRY_IMAGE}/backend:latest"
+
+backend-deploy:
+  image:
+    name: bitnami/kubectl:latest
+  stage: deploy
+  before_script:
+    - cp $KUBERNETES_CONFIG $HOME/.kube/config
+    - cd backend
+  script: 
+    - kubectl apply -f deploy/production.yaml
