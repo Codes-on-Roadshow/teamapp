@@ -5,7 +5,9 @@ stages:
   - integration-test
   - deploy
 
-.android-build:
+android-build:
+  tags:
+    - 'mobile'
   stage: build
   before_script:
     - cd mobile
@@ -19,11 +21,14 @@ stages:
     paths:
       - mobile/build/app/outputs/
 
-.android-integration-test:
+android-integration-test:
+  tags:
+    - 'mobile'
   stage: integration-test
   image: google/cloud-sdk
   needs:
     - android-build
+    - backend-deploy
   before_script:
     - cd mobile
   script:
