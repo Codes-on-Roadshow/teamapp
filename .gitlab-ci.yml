@@ -55,7 +55,6 @@ android-integration-test:
   image: google/cloud-sdk
   needs:
     - android-build
-    - backend-deploy
   before_script:
     - cd mobile
   script:
