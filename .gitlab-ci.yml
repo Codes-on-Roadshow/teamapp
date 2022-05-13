@@ -5,55 +5,6 @@ stages:
   - integration-test
   - deploy
 
-android-build:
-  tags:
-    - 'mobile'
-  stage: build
-  before_script:
-    - cd mobile
-  script:
-    - flutter pub get
-    - cd android
-    - flutter build apk
-    - ./gradlew app:assembleAndroidTest
-    - ./gradlew app:assembleDebug -Ptarget="integration_test/main_test.dart"
-  artifacts:
-    paths:
-      - mobile/build/app/outputs/
-
-android-integration-test:
-  tags:
-    - 'mobile'
-  stage: integration-test
-  image: google/cloud-sdk
-  needs:
-    - android-build
-    - backend-deploy
-  before_script:
-    - cd mobile
-  script:
-    - echo $SERVICE_ACCOUNT_KEY > key.json
-    - gcloud auth activate-service-account --key-file=key.json
-    - gcloud config set project $PROJECT_ID
-    - gcloud firebase test android models list
-    - gcloud firebase test android run 
-      --type instrumentation 
-      --app build/app/outputs/apk/debug/app-debug.apk 
-      --test build/app/outputs/apk/androidTest/debug/app-debug-androidTest.apk 
-      --device model=Pixel3,version=30,locale=en,orientation=portrait
-      --use-orchestrator
-      --timeout 5m
-  when: manual
-
-.ios-build:
-  stage: build
-  before_script:
-    - cd mobile
-  script:
-    - flutter pub get
-    - cd ios
-    - flutter build ios --release
-
 backend-build:
   image: gcr.io/kaniko-project/executor:debug
   stage: build
@@ -80,3 +31,51 @@ backend-deploy:
   script: 
     - kubectl apply -f deploy/production.yaml
     - kubectl rollout restart deployment backend -n teamapp
+
+android-build:
+  tags:
+    - 'mobile'
+  stage: build
+  before_script:
+    - cd mobile
+  script:
+    - flutter pub get
+    - cd android
+    - flutter build apk
+    - ./gradlew app:assembleAndroidTest
+    - ./gradlew app:assembleDebug -Ptarget="integration_test/main_test.dart"
+  artifacts:
+    paths:
+      - mobile/build/app/outputs/
+
+android-integration-test:
+  tags:
+    - 'mobile'
+  stage: integration-test
+  image: google/cloud-sdk
+  needs:
+    - android-build
+  before_script:
+    - cd mobile
+  script:
+    - echo $SERVICE_ACCOUNT_KEY > key.json
+    - gcloud auth activate-service-account --key-file=key.json
+    - gcloud config set project $PROJECT_ID
+    - gcloud firebase test android models list
+    - gcloud firebase test android run 
+      --type instrumentation 
+      --app build/app/outputs/apk/debug/app-debug.apk 
+      --test build/app/outputs/apk/androidTest/debug/app-debug-androidTest.apk 
+      --device model=Pixel3,version=30,locale=en,orientation=portrait
+      --use-orchestrator
+      --timeout 5m
+  when: manual
+
+.ios-build:
+  stage: build
+  before_script:
+    - cd mobile
+  script:
+    - flutter pub get
+    - cd ios
+    - flutter build ios --release
