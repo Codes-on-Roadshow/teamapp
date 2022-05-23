@@ -6,7 +6,8 @@ stages:
   - integration-test
   - deploy
 
-flutter-test:
+local-test:
+  stage: test
   tags:
     - 'mobile'
   before_script:
@@ -29,19 +30,6 @@ backend-build:
       --dockerfile "${CI_PROJECT_DIR}/backend/Dockerfile"
       --destination "${CI_REGISTRY_IMAGE}/backend:latest"
 
-backend-deploy:
-  image:
-    name: bitnami/kubectl:latest
-  stage: deploy
-  needs:
-    - backend-build
-  before_script:
-    - cp $KUBERNETES_CONFIG $HOME/.kube/config
-    - cd backend
-  script: 
-    - kubectl apply -f deploy/production.yaml
-    - kubectl rollout restart deployment backend -n teamapp
-
 android-build:
   tags:
     - 'mobile'
@@ -54,9 +42,19 @@ android-build:
     - flutter build apk
     - ./gradlew app:assembleAndroidTest
     - ./gradlew app:assembleDebug -Ptarget="integration_test/main_test.dart"
-  artifacts:
-    paths:
-      - mobile/build/app/outputs/
+
+backend-deploy:
+  image:
+    name: bitnami/kubectl:latest
+  stage: deploy
+  needs:
+    - backend-build
+  before_script:
+    - cp $KUBERNETES_CONFIG $HOME/.kube/config
+    - cd backend
+  script: 
+    - kubectl apply -f deploy/production.yaml
+    - kubectl rollout restart deployment backend -n teamapp
 
 android-integration-test:
   tags:
@@ -80,12 +78,3 @@ android-integration-test:
       --use-orchestrator
       --timeout 5m
   when: manual
-
-.ios-build:
-  stage: build
-  before_script:
-    - cd mobile
-  script:
-    - flutter pub get
-    - cd ios
-    - flutter build ios --release
