@@ -1,9 +1,17 @@
 image: cirrusci/flutter:2.10.3
 
 stages:
+  - test
   - build
   - integration-test
   - deploy
+
+flutter-test:
+  before_script:
+    - cd mobile
+  script:
+    - flutter pub get
+    - firebase emulators:exec --import './integration_test/firebase_emulator' 'flutter test integration_test/main_test.dart'
 
 backend-build:
   image: gcr.io/kaniko-project/executor:debug
