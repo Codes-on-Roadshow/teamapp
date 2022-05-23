@@ -17,6 +17,7 @@ local-test:
     - firebase emulators:exec --import './integration_test/firebase_emulator' 'flutter test integration_test/main_test.dart'
 
 backend-build:
+  extends: .backend-changes
   image: gcr.io/kaniko-project/executor:debug
   stage: build
   before_script:
@@ -31,6 +32,7 @@ backend-build:
       --destination "${CI_REGISTRY_IMAGE}/backend:latest"
 
 android-build:
+  extends: .mobile-changes
   tags:
     - 'mobile'
   stage: build
@@ -44,6 +46,7 @@ android-build:
     - ./gradlew app:assembleDebug -Ptarget="integration_test/main_test.dart"
 
 backend-deploy:
+  extends: .backend-changes
   image:
     name: bitnami/kubectl:latest
   stage: deploy
@@ -78,3 +81,15 @@ android-integration-test:
       --use-orchestrator
       --timeout 5m
   when: manual
+
+.backend-changes:
+  only:
+    changes:
+      - backend/*
+      - backend/**/*
+
+.mobile-changes:
+  only:
+    changes:
+      - mobile/*
+      - mobile/**/*
