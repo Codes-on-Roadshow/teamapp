@@ -18,4 +18,9 @@ class UserController {
     fun postUser(@RequestBody user: String){
         users.add(user)
     }
+
+    @GetMapping("/test")
+    fun test(): String {
+        return "Updated Code 1"
+    }
 }
