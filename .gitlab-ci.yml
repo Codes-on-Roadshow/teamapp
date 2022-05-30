@@ -43,6 +43,11 @@ android-build:
     - flutter build apk
     - ./gradlew app:assembleAndroidTest
     - ./gradlew app:assembleDebug -Ptarget="integration_test/main_test.dart"
+  artifacts:
+    paths:
+      - mobile/build/app/outputs/apk/debug/app-debug.apk
+      - mobile/build/app/outputs/apk/androidTest/debug/app-debug-androidTest.apk
+      - mobile/build/app/outputs/flutter-apk/app-release.apk
 
 backend-deploy:
   extends: .backend-changes
