@@ -97,22 +97,16 @@ android-integration-test:
       --timeout 5m
   when: manual
 
-.root-changes:
-  only:
-    changes:
-      - .gitlab-ci.yml
-
-
 .backend-changes:
-  extends: .root-changes
   only:
     changes:
       - backend/*
       - backend/**/*
+      - .gitlab-ci.yml
 
 .mobile-changes:
-  extends: .root-changes
   only:
     changes:
       - mobile/*
       - mobile/**/*
+      - .gitlab-ci.yml
