@@ -31,5 +31,8 @@
         "^build"
       ]
     }
-  }
+  },
+  "plugins": [
+    "@nxrocks/nx-flutter"
+  ]
 }
