@@ -19,7 +19,8 @@
           "build",
           "lint",
           "test",
-          "e2e"
+          "e2e",
+          "buildApk"
         ],
         "accessToken": "NGY1NjFiMjctNjRlNS00ZjhjLWE3NGUtMDMyYjYxYzhiMjBifHJlYWQtd3JpdGU="
       }
