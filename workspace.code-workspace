@@ -1,16 +1,16 @@
 {
-	"folders": [
-		{
-			"path": "."
-		},
-		{
-			"path": "backend"
-		},
-		{
-			"path": "mobile"
-		}
-	],
-	"settings": {
-		"java.configuration.updateBuildConfiguration": "interactive"
-	}
+    "folders": [
+        {
+            "path": "."
+        },
+        {
+            "path": "./apps/backend"
+        },
+        {
+            "path": "./apps/web"
+        },
+        {
+            "path": "./apps/mobile"
+        }
+    ]
 }
