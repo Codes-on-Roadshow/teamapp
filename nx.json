@@ -15,25 +15,29 @@
     "default": {
       "runner": "@nrwl/nx-cloud",
       "options": {
-        "cacheableOperations": [
-          "build",
-          "lint",
-          "test",
-          "e2e",
-          "buildApk"
-        ],
+        "cacheableOperations": ["build", "lint", "test", "e2e", "buildApk"],
         "accessToken": "NGY1NjFiMjctNjRlNS00ZjhjLWE3NGUtMDMyYjYxYzhiMjBifHJlYWQtd3JpdGU="
       }
     }
   },
   "targetDefaults": {
     "build": {
-      "dependsOn": [
-        "^build"
-      ]
+      "dependsOn": ["^build"]
     }
   },
-  "plugins": [
-    "@nxrocks/nx-flutter"
-  ]
+  "plugins": ["@nxrocks/nx-flutter"],
+  "generators": {
+    "@nrwl/react": {
+      "application": {
+        "babel": true
+      }
+    },
+    "@nrwl/next": {
+      "application": {
+        "style": "css",
+        "linter": "eslint"
+      }
+    }
+  },
+  "defaultProject": "web"
 }
