@@ -11,6 +11,11 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: 'npm'
+      - run: 'npm ci'
       - name: Build Android
         uses: MansaGroup/nrwl-nx-action@v2
         with:
