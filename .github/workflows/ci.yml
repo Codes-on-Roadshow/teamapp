@@ -7,7 +7,8 @@ on:
   pull_request:
 
 jobs:
-  setup:
+  main:
+    needs: ['setup']
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v3
@@ -20,15 +21,7 @@ jobs:
           flutter-version: '2.10.3'
           channel: 'stable'
           cache: true
-      - run: 'npm ci'
-
-  build-android:
-    needs: ['setup']
-    runs-on: macos-latest
-    steps:
+      - name: 'Install Dependencies'
+        run: 'npm ci'
       - name: Build Android
-        uses: MansaGroup/nrwl-nx-action@v2
-        with:
-          targets: buildApk
-          projects: mobile
-          nxCloud: true
+        run: 'npx nx run mobile:buildApk'
