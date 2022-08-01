@@ -13,6 +13,6 @@ jobs:
       - name: Build Android
         uses: MansaGroup/nrwl-nx-action@v2
         with:
-          target: buildApk
+          targets: buildApk
           projects: mobile
           nxCloud: true
