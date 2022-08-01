@@ -9,7 +9,7 @@ on:
 jobs:
   build-android:
     name: Build Android
-    uses: mansagroup/nrwl-nx-action@v2
+    uses: MansaGroup/nrwl-nx-action@v2
     with:
       target: buildApk
       projects: mobile
