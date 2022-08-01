@@ -15,7 +15,7 @@ jobs:
         with:
           node-version: 18.7.0
           cache: 'npm'
-      - uses: actions/setup-java@v1
+      - uses: actions/setup-java@v3
         with:
           java-version: 11
           cache: 'gradle'
@@ -29,9 +29,9 @@ jobs:
       - name: Build Android
         run: 'npx nx run mobile:buildApk'
       - name: Upload APK to Firebase App Distribution
-        uses: wzieba/Firebase-Distribution-Github-Action@v1
+        uses: hasretsariyer/firebase-app-distribution-github-action@v1
         with:
           appId: ${{secrets.FIREBASE_APP_ID}}
           token: ${{secrets.FIREBASE_TOKEN}}
-          groups: users
+          tester_groups: users
           file: apps/mobile/build/app/outputs/flutter-apk/app-release.apk
