@@ -19,6 +19,7 @@ jobs:
         with:
           flutter-version: '2.10.3'
           channel: 'stable'
+          cache: true
       - run: 'npm ci'
       - name: Build Android
         uses: MansaGroup/nrwl-nx-action@v2
