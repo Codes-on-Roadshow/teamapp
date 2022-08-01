@@ -28,7 +28,7 @@ jobs:
         run: 'npx nx run mobile:buildApk'
       - name: Upload APK to Firebase App Distribution
         run: |
-          firebase appdistribution:distribute apps/mobile/build/app/outputs/flutter-apk/app-release.apk
-            --groups users
-            --app ${{secrets.FIREBASE_APP_ID}}
+          firebase appdistribution:distribute apps/mobile/build/app/outputs/flutter-apk/app-release.apk \
+            --groups users \
+            --app ${{secrets.FIREBASE_APP_ID}} \
             --token ${{secrets.FIREBASE_TOKEN}}
