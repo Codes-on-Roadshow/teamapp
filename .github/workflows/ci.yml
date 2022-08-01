@@ -15,6 +15,9 @@ jobs:
         with:
           node-version: 18
           cache: 'npm'
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
       - run: 'npm ci'
       - name: Build Android
         uses: MansaGroup/nrwl-nx-action@v2
