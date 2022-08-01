@@ -7,7 +7,7 @@ on:
   pull_request:
 
 jobs:
-  build-android:
+  setup:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v3
@@ -21,6 +21,11 @@ jobs:
           channel: 'stable'
           cache: true
       - run: 'npm ci'
+
+  build-android:
+    needs: ['setup']
+    runs-on: macos-latest
+    steps:
       - name: Build Android
         uses: MansaGroup/nrwl-nx-action@v2
         with:
