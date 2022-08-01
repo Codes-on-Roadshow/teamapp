@@ -29,7 +29,6 @@ jobs:
       - name: Build Android
         run: 'npx nx run mobile:buildApk'
       - name: Upload APK to Firebase App Distribution
-      - name: Firebase App Distribution Action
         uses: hasretsariyer/firebase-app-distribution-github-action@v1.0
         with:
           appId: ${{secrets.FIREBASE_APP_ID}}
