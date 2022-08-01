@@ -8,9 +8,11 @@ on:
 
 jobs:
   build-android:
-    name: Build Android
-    uses: MansaGroup/nrwl-nx-action@v2
-    with:
-      target: buildApk
-      projects: mobile
-      nxCloud: true
+    runs-on: macos-latest
+    steps:
+      - name: Build Android
+        uses: MansaGroup/nrwl-nx-action@v2
+        with:
+          target: buildApk
+          projects: mobile
+          nxCloud: true
