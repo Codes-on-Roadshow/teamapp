@@ -17,6 +17,7 @@ jobs:
           cache: 'npm'
       - uses: subosito/flutter-action@v2
         with:
+          flutter-version: '2.10.3'
           channel: 'stable'
       - run: 'npm ci'
       - name: Build Android
