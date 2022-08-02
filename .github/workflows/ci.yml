@@ -20,7 +20,6 @@ jobs:
           flutter-version: 2.10.3
           channel: stable
           cache: true
-      - uses: nrwl/nx-set-shas@v2
       - name: Install NPM Dependencies
         run: npm ci
       - name: Build Android
