@@ -235,7 +235,7 @@ class CreateTeamPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Team Information Test for CI'),
+        title: const Text('Team Information'),
       ),
       body: SafeArea(
         child: Container(
