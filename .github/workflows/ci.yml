@@ -31,7 +31,7 @@ jobs:
         with:
           files: "apps/mobile/build/app/outputs/apk/release/app-release.apk"
       - name: Upload APK to Firebase App Distribution
-        if: steps.android_apk.files_exists == 'true'
+        if: steps.android_apk.outputs.files_exists == 'true'
         run: |
           npx firebase-tools appdistribution:distribute apps/mobile/build/app/outputs/apk/release/app-release.apk \
             --groups users \
