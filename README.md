@@ -6,7 +6,7 @@
 
 ## Getting Started
 ```
-npm install
+npm ci
 npx nx graph
 ```
 
