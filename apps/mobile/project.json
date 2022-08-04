@@ -27,7 +27,7 @@
     "test": {
       "executor": "@nrwl/workspace:run-commands",
       "options": {
-        "command": "flutter test",
+        "command": "firebase emulators:exec --import './integration_test/firebase_emulator' 'flutter test integration_test/main_test.dart'",
         "cwd": "apps/mobile"
       }
     },
