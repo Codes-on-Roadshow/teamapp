@@ -1,19 +1,13 @@
 import { Express } from 'express';
 
-interface Teams {
-  id: number;
-  name: string;
-}
+import { Team } from '../common/types';
 
-const teams: Teams[] = [
-  { id: 1, name: 'Team 1' },
-  { id: 2, name: 'Team 2' },
-];
+const teams: Team[] = [{ name: 'Team 1' }, { name: 'Team 2' }];
 
 export function addTeamRoutes(app: Express) {
   app.get('/api/teams', (_, resp) => resp.send(teams));
 
-  app.post('/api/teams', (req, resp) => {    
+  app.post('/api/teams', (req, resp) => {
     const newTeam = req.body;
     teams.push(newTeam);
     resp.status(201).send(newTeam);
