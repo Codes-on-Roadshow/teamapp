@@ -7,4 +7,3 @@ Feature: Profile
         And I see {'ranuwp@test.teamapp.com'} text
         And I see {'avatar-image'} image
         And I see {'Sign Out'} text
-    
