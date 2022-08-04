@@ -26,4 +26,14 @@ describe('POST pairs', () => {
     expect(response.body).toEqual(newPair);
     expect(response.statusCode).toBe(201);
   });
+  
+  it('should add new solo pair', async () => {
+    const newPair = [{ name: 'Kinan' }];
+    const response = await requestWithSupertest
+      .post('/api/pairs')
+      .send(newPair);
+
+    expect(response.body).toEqual(newPair);
+    expect(response.statusCode).toBe(201);
+  });
 });
