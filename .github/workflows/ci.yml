@@ -20,8 +20,36 @@ jobs:
           flutter-version: 2.10.3
           channel: stable
           cache: true
+      - uses: gradle/gradle-build-action@v2
       - name: Install NPM Dependencies
         run: npm ci
+      - name: AVD cache
+        uses: actions/cache@v3
+        id: avd-cache
+        with:
+          path: |
+            ~/.android/avd/*
+            ~/.android/adb*
+          key: avd-29
+      - name: create AVD and generate snapshot for caching
+        if: steps.avd-cache.outputs.cache-hit != 'true'
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 29
+          force-avd-creation: false
+          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
+          disable-animations: false
+          script: echo "Generated AVD snapshot for caching."
+      - uses: reactivecircus/android-emulator-runner@v2
+        with:
+          working-directory: apps/mobile/android
+          api-level: 29
+          force-avd-creation: false
+          emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
+          disable-animations: true
+          script: ./gradlew connectedCheck
+      - name: Test
+        run: npx nx run test
       - name: Build Android
         run: |
           npx nx run mobile:buildApk
@@ -31,7 +59,7 @@ jobs:
         with:
           files: "apps/mobile/build/app/outputs/apk/release/app-release.apk"
       - name: Upload APK to Firebase App Distribution
-        if: steps.android_apk.files_exists == 'true'
+        if: steps.android_apk.outputs.files_exists == 'true'
         run: |
           npx firebase-tools appdistribution:distribute apps/mobile/build/app/outputs/apk/release/app-release.apk \
             --groups users \
