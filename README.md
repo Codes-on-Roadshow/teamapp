@@ -1,8 +1,8 @@
 # TeamApp
 
 ## Prerequisite
-- Flutter version 2.10.3
-- Node 18.7.0
+- Flutter version 2.10.1
+- Node 16.16.0
 
 ## Getting Started
 ```

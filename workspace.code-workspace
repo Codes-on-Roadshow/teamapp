@@ -4,7 +4,7 @@
             "path": "."
         },
         {
-            "path": "./apps/backend"
+            "path": "./apps/api"
         },
         {
             "path": "./apps/web"
