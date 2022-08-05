@@ -47,12 +47,10 @@ jobs:
           script: echo "Generated AVD snapshot for caching."
       - uses: reactivecircus/android-emulator-runner@v2
         with:
-          working-directory: ./apps/mobile/android
           api-level: 29
           force-avd-creation: false
           emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: true
-          script: 'pwd && gradle connectedCheck'
       - name: Test
         run: npx nx run test
       - name: Build Android
