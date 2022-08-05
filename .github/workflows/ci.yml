@@ -23,6 +23,8 @@ jobs:
       - uses: gradle/gradle-build-action@v2
         with:
           gradle-version: 6.7
+      - name: Install Global Firebase Tools
+        run: npm install -g firebase-tools
       - name: Install NPM Dependencies
         run: npm ci
       - name: Install Flutter Dependencies
