@@ -30,9 +30,6 @@ jobs:
         run: npm install -g firebase-tools
       - name: Install NPM Dependencies
         run: npm ci
-      - name: Install Flutter Dependencies
-        working-directory: ./apps/mobile
-        run: "flutter pub get"
       - name: AVD cache
         uses: actions/cache@v3
         id: avd-cache
