@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterfire_ui/auth.dart';
+import 'package:teamapp/api_service.dart';
 import 'package:teamapp/controller/team_controller.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get.dart';
@@ -243,6 +244,10 @@ class ExistTeamPage extends StatelessWidget {
   }
 }
 
+void _addTeam(String name) async {
+  (await ApiService().addTeams(name));
+}
+
 class CreateTeamPage extends StatelessWidget {
   final teamNameTextEditingController = TextEditingController();
   final TeamController teamController = Get.find();
@@ -279,8 +284,9 @@ class CreateTeamPage extends StatelessWidget {
                   key: const Key('create-team-button'),
                   child: const Text('Create Team'),
                   onPressed: () {
-                    teamController
-                        .createTeam(teamNameTextEditingController.text);
+                    String name = teamNameTextEditingController.text;
+                    _addTeam(name);
+                    teamController.createTeam(name);
                     Get.offAll(() => HomePage());
                   },
                 ),
