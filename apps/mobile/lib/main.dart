@@ -31,6 +31,8 @@ class App extends StatelessWidget {
       home: const AuthGate(),
       theme: ThemeData(
         primaryColor: Colors.deepPurple,
+        highlightColor: Colors.deepPurple.shade300,
+        indicatorColor: Colors.amber,
         textSelectionTheme: const TextSelectionThemeData(
           cursorColor: Colors.deepPurple,
         ),
@@ -209,15 +211,31 @@ class ExistTeamPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(teamController.team),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
-            Text('Invite your team using this code'),
+    return DefaultTabController(
+      length: 3,
+      child: Scaffold(
+        appBar: AppBar(
+          bottom: const TabBar(
+            tabs: [
+              Tab(text: "Member"),
+              Tab(text: "Active Pair"),
+              Tab(text: "Pair History"),
+            ],
+          ),
+          title: Text(teamController.team),
+        ),
+        body: TabBarView(
+          children: [
+            Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Text('Invite your team using this code'),
+                ],
+              ),
+            ),
+            const Icon(Icons.directions_transit),
+            const Icon(Icons.directions_bike),
           ],
         ),
       ),
