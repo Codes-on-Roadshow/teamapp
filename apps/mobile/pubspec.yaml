@@ -38,7 +38,7 @@ dependencies:
   http: ^0.13.5
 
 dev_dependencies:
-  bdd_widget_test: 1.0.3
+  bdd_widget_test: 1.4.3
   build_runner: null
   change_app_package_name: ^1.0.0
 

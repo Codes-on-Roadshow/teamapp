@@ -3,6 +3,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:integration_test/integration_test.dart';
 
 import './step/the_app_is_running.dart';
 import './step/i_login.dart';
@@ -11,8 +12,10 @@ import './step/i_see_text.dart';
 import './step/i_see_image.dart';
 
 void main() {
-  group('Profile', () {
-    testWidgets('should show name, email, avatar and sign out', (tester) async {
+  IntegrationTestWidgetsFlutterBinding.ensureInitialized();
+
+  group('''Profile''', () {
+    testWidgets('''should show name, email, avatar and sign out''', (tester) async {
       await theAppIsRunning(tester);
       await iLogin(tester);
       await iTapIcon(tester, Icons.person);
