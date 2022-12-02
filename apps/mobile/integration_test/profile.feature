@@ -1,5 +1,5 @@
 Feature: Profile
-    Scenario: should show name, email, and avatar
+    Scenario: should show name, email, avatar and sign out
         Given the app is running
         And I login
         When I tap {Icons.person} icon
