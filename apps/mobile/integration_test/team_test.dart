@@ -21,5 +21,14 @@ void main() {
       await iSeeText(tester, "Invite your team using this code");
       await iSeeText(tester, "Death Note");
     });
+    testWidgets('Create a new team DevOps', (tester) async {
+      await theAppIsRunning(tester);
+      await iLogin(tester);
+      await iTapText(tester, "Create Team");
+      await iEnterIntoInputField(tester, "Death Devops", 0);
+      await iTapText(tester, "Create Team");
+      await iSeeText(tester, "Invite your team using this code");
+      await iSeeText(tester, "Death Devops");
+    });
   });
 }
